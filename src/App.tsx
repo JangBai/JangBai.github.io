@@ -3,8 +3,10 @@ import "./App.css";
 function App() {
   return (
     <>
-      <div>
-        <h1>Hello World</h1>
+      <div className="bg-black flex justify-center items-center h-screen">
+        <h1 className="text-4xl font-bold text-white text-center">
+          Tailwind Test
+        </h1>
       </div>
     </>
   );
