@@ -1,0 +1,6 @@
+# 빌드 폴더 포맷팅 방지
+
+node_modules
+dist
+coverage
+
