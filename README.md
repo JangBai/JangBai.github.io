@@ -1,75 +1,38 @@
-# React + TypeScript + Vite
+# JangBai Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔗 Live: https://jangbai.github.io/
 
-Currently, two official plugins are available:
+React + Vite 기반으로 제작한 웹 포트폴리오입니다.  
+정적 배포 환경(GitHub Pages)을 기준으로 설계되었으며,  
+실제 프로덕션과 유사한 빌드/배포 구조를 적용했습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 프로젝트 목표
 
-## React Compiler
+이 프로젝트는 단순한 자기소개 페이지가 아니라,
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- 유지보수를 고려한 폴더 구조 설계
+- 코드 스타일 통일 (ESLint + Prettier)
+- 프로덕션 배포 워크플로우 구성
+- GitHub Pages 기반 정적 배포 환경 이해
 
-Note: This will impact Vite dev & build performances.
+를 목표로 제작되었습니다.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Category   | Stack                |
+| ---------- | -------------------- |
+| Framework  | React                |
+| Bundler    | Vite                 |
+| Language   | TypeScript           |
+| Lint       | ESLint (Flat Config) |
+| Formatter  | Prettier             |
+| Deployment | GitHub Pages         |
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Architecture Overview
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+- Vite 기반 정적 빌드 환경
+- 컴포넌트 단위 분리
+- 빌드 결과물(`dist`)과 소스 코드 분리
+- `gh-pages` 브랜치를 통한 배포 자동화
