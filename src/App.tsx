@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/layout/Header";
 import Home from "./pages/home/Home";
 import Starfield from "./components/ui/Starfield";
+import Test from "./test";
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       <Starfield />
       <main className="pt-24">
         <Home />
+        <Test />
       </main>
     </div>
   );

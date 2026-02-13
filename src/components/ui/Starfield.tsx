@@ -35,10 +35,15 @@ export default function Starfield() {
       };
     });
 
+    const getPrimaryColor = () =>
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-primary")
+        .trim();
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "white";
+      ctx.fillStyle = getPrimaryColor();
 
       stars.forEach((star) => {
         // 중심에서 바깥 방향으로 이동
@@ -73,5 +78,10 @@ export default function Starfield() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 -z-10 bg-black" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 -z-10 bg-[var(--color-background)]"
+    />
+  );
 }
