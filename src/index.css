@@ -14,40 +14,16 @@ body {
 
 :root {
   --color-background: #ffffff;
+  --color-nav-background: #ffffff80;
   --color-primary: #000000;
+  --color-nav-text: #333333;
+  --color-nav-text-hover: #000000;
 }
 
 .dark {
   --color-background: #000000;
+  --color-nav-background: #00000080;
   --color-primary: #ffffff;
-}
-
-@layer base {
-  h1 {
-    @apply text-6xl font-bold tracking-tight;
-  }
-
-  h2 {
-    @apply text-5xl font-semibold tracking-tight;
-  }
-
-  h3 {
-    @apply text-4xl font-semibold;
-  }
-
-  h4 {
-    @apply text-3xl font-medium;
-  }
-
-  h5 {
-    @apply text-2xl font-medium;
-  }
-
-  h6 {
-    @apply text-xl font-medium;
-  }
-
-  p {
-    @apply text-lg;
-  }
+  --color-nav-text: #e4e4e4;
+  --color-nav-text-hover: #ffffff;
 }
