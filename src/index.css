@@ -37,3 +37,17 @@ body {
   --color-accent-soft: #a5b4fc;
   --color-accent-hover: linear-gradient(90deg, #6366f1, #8b5cf6);
 }
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 2.5s ease-in-out infinite;
+}
