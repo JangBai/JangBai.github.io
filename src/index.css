@@ -18,6 +18,11 @@ body {
   --color-primary: #000000;
   --color-nav-text: #333333;
   --color-nav-text-hover: #000000;
+
+  --color-accent: #6366f1;
+  --color-accent-strong: #4f46e5;
+  --color-accent-soft: #a5b4fc;
+  --color-accent-hover: linear-gradient(90deg, #6366f1, #8b5cf6);
 }
 
 .dark {
@@ -26,4 +31,9 @@ body {
   --color-primary: #ffffff;
   --color-nav-text: #e4e4e4;
   --color-nav-text-hover: #ffffff;
+
+  --color-accent: #6366f1;
+  --color-accent-strong: #4f46e5;
+  --color-accent-soft: #a5b4fc;
+  --color-accent-hover: linear-gradient(90deg, #6366f1, #8b5cf6);
 }

@@ -15,7 +15,7 @@ export default function Introduce() {
           {/* 문제 해결 중심의 사고와 비즈니스 이해를 바탕으로, */}
           Based on problem-solving thinking and business understanding
         </span>
-        <span className="text-center text-base text-[var(--color-primary)] sm:text-xl lg:text-2xl">
+        <span className="text-center text-base text-[var(--color-accent)] sm:text-xl lg:text-2xl">
           {/* 사용자와 서비스 모두에 가치를 더하는 프론트엔드 개발자 김장배입니다. */}
           This is Kim Jang-bae, a front-end developer who adds value to both
           users and services.
