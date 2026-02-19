@@ -23,7 +23,8 @@ export default function Introduce() {
           </span>
         </div>
       </div>
-      <div className="top-50 absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
+      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)]" /> */}
+      <div className="animate-glow absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
       <div className="animate-float left-50 absolute bottom-0">
         <svg
           width="40"

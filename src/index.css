@@ -38,6 +38,9 @@ body {
   --color-accent-hover: linear-gradient(90deg, #6366f1, #8b5cf6);
 }
 
+/* ------ Animations ------ */
+
+/* Introduce */
 @keyframes float {
   0%,
   100% {
@@ -50,4 +53,18 @@ body {
 
 .animate-float {
   animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
 }
