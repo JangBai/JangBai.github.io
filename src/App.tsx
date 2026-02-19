@@ -5,13 +5,15 @@ import Test from "./test";
 
 export default function App() {
   return (
-    <div className="min-h-screen">
-      <Header />
+    <>
       <Starfield />
-      <main className="pt-24">
-        <Home />
-        <Test />
-      </main>
-    </div>
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <Header />
+        <main className="min-h-screen">
+          <Home />
+          {/* <Test /> */}
+        </main>
+      </div>
+    </>
   );
 }
