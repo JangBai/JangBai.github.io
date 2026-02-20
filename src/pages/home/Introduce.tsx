@@ -13,7 +13,7 @@ export default function Introduce() {
         <div className="flex flex-col items-center justify-center gap-4 px-4 text-center text-[var(--color-accent-strong)] dark:text-[var(--color-accent-soft)] sm:text-lg lg:text-xl">
           <TypeAnimation
             sequence={[
-              "Turning Complexity Into Value",
+              "Adding Value Through Code", // "코드에 가치를 더하다"
               3000, // 다 쓰고 대기
               "", // 지우기
               1500, // 지운 후 대기
