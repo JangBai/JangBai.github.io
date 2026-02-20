@@ -7,7 +7,7 @@ export default function Header() {
       <div className="flex items-center justify-between py-3 sm:py-4">
         {/* Logo */}
         <h1>
-          <a href="#introduce" className="tracking-tight">
+          <a href="/" className="tracking-tight">
             <span className="text-xl font-bold text-[var(--color-primary)] sm:text-2xl">
               JB
             </span>
