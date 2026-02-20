@@ -21,22 +21,24 @@ export default function ExperienceCard() {
             <div className="w-full pl-8">
               <div className="mb-10">
                 <div className="flex flex-wrap items-end gap-3">
-                  <div className="text-3xl font-bold tracking-tight">
+                  <div className="text-2xl font-bold tracking-tight sm:text-2xl md:text-3xl">
                     <span className="bg-gradient-to-r from-slate-900 to-slate-500 bg-clip-text text-transparent dark:from-white dark:to-slate-400">
                       {item.company}
                     </span>
                   </div>
-                  <p className="text-lg opacity-70">{item.position}</p>
+                  <p className="text-sm opacity-70 md:text-lg">
+                    {item.position}
+                  </p>
                 </div>
                 <p className="mt-2 text-sm opacity-50">{item.period}</p>
               </div>
 
               {item.sections.map((section, idx) => (
                 <div key={idx} className="mb-8">
-                  <h4 className="mb-3 text-xl font-semibold text-[var(--color-accent-strong)] dark:text-[var(--color-accent-soft)]">
+                  <h4 className="mb-3 text-lg font-semibold text-[var(--color-accent-strong)] dark:text-[var(--color-accent-soft)] lg:text-xl">
                     {section.title}
                   </h4>
-                  <ul className="space-y-1 text-lg opacity-80">
+                  <ul className="text-md space-y-1 opacity-80 lg:text-lg">
                     {section.descriptions.map((desc, i) => (
                       <li key={i} className="flex items-center gap-2">
                         <span className="h-1 w-1 rounded-full bg-[var(--color-primary)]"></span>
