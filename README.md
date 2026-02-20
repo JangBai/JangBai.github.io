@@ -19,14 +19,11 @@ React + Vite 기반으로 제작한 웹 포트폴리오입니다.
 
 ## Tech Stack
 
-| Category   | Stack                |
-| ---------- | -------------------- |
-| Framework  | React                |
-| Bundler    | Vite                 |
-| Language   | TypeScript           |
-| Lint       | ESLint (Flat Config) |
-| Formatter  | Prettier             |
-| Deployment | GitHub Pages         |
+| Core | React · TypeScript |
+| Styling | Tailwind CSS |
+| Build Tool | Vite |
+| Code Quality | ESLint · Prettier |
+| Deployment | GitHub Pages |
 
 ---
 
