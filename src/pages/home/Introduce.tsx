@@ -2,7 +2,7 @@ import { TypeAnimation } from "react-type-animation";
 
 export default function Introduce() {
   return (
-    <section className="justify-top relative flex h-[45rem] flex-col items-center gap-6 pt-10 sm:h-[50rem] sm:gap-12">
+    <section className="justify-top relative mb-16 mt-32 flex h-[45rem] flex-col items-center gap-6 sm:h-[50rem] sm:gap-12">
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="text-center text-[var(--color-primary)]">
           <h2 className="text-4xl font-bold sm:text-6xl lg:text-6xl">
@@ -28,7 +28,7 @@ export default function Introduce() {
           />
         </div>
       </div>
-      <div className="animate-glow rounded-50% absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
+      <div className="animate-glow absolute inset-0 -top-64 -z-10 rounded-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
 
       <p className="flex flex-col gap-4 text-center text-[var(--color-primary)] sm:text-lg lg:text-lg">
         <span>
