@@ -5,10 +5,10 @@ export default function Introduce() {
     <section className="relative flex h-screen -translate-y-32 flex-col items-center justify-center gap-6 max-sm:h-[80vh] sm:-translate-y-56 sm:gap-12 lg:h-[100vh]">
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="text-center text-[var(--color-primary)]">
-          <h2 className="text-3xl font-bold sm:text-5xl lg:text-5xl">
+          <h2 className="text-4xl font-bold sm:text-6xl lg:text-6xl">
             KIM JANG BAE
           </h2>
-          <p className="text-3xl sm:text-3xl lg:text-5xl">Frontend Developer</p>
+          <p className="text-3xl sm:text-5xl lg:text-5xl">Frontend Developer</p>
         </div>
         <div className="flex flex-col items-center justify-center gap-4 px-4 text-center text-[var(--color-accent-strong)] dark:text-[var(--color-accent-soft)] sm:text-lg lg:text-xl">
           <TypeAnimation
