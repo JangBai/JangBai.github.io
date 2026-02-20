@@ -2,13 +2,13 @@ import { TypeAnimation } from "react-type-animation";
 
 export default function Introduce() {
   return (
-    <section className="relative flex h-screen -translate-y-32 flex-col items-center justify-center gap-6 max-sm:h-[60vh] sm:-translate-y-56 sm:gap-12">
+    <section className="relative flex h-screen -translate-y-32 flex-col items-center justify-center gap-6 max-sm:h-[80vh] sm:-translate-y-56 sm:gap-12 lg:h-[100vh]">
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="text-center text-[var(--color-primary)]">
           <h2 className="text-3xl font-bold sm:text-5xl lg:text-5xl">
             KIM JANG BAE
           </h2>
-          <p className="text-xl sm:text-3xl lg:text-5xl">Frontend Developer</p>
+          <p className="text-3xl sm:text-3xl lg:text-5xl">Frontend Developer</p>
         </div>
         <div className="flex flex-col items-center justify-center gap-4 px-4 text-center text-[var(--color-accent-strong)] dark:text-[var(--color-accent-soft)] sm:text-lg lg:text-xl">
           <TypeAnimation
@@ -49,20 +49,25 @@ export default function Introduce() {
         </span>
       </p>
 
-      <div className="animate-float left-50 absolute bottom-0">
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 24 24"
-          fill="none"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          stroke="var(--color-primary)"
-          className="stroke-[var(--color-primary)] opacity-70"
-        >
-          <path d="M12 5v14M19 12l-7 7-7-7" />
-        </svg>
+      <div className="left-50 absolute bottom-0 hidden sm:block">
+        <div className="flex flex-col items-center gap-6">
+          <span className="hidden text-xs tracking-[0.3em] text-[var(--color-primary)] opacity-40 sm:block">
+            SCROLL TO EXPLORE
+          </span>
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            stroke="var(--color-primary)"
+            className="animate-float stroke-[var(--color-primary)] opacity-70"
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+          </svg>
+        </div>
       </div>
     </section>
   );
