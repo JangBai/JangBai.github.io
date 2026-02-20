@@ -24,7 +24,6 @@ export default function Introduce() {
           />
         </div>
       </div>
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)]" /> */}
       <div className="animate-glow rounded-50% absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15)_0%,transparent_60%)] dark:bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.25)_0%,transparent_60%)]" />
 
       <p className="flex flex-col gap-4 text-center text-[var(--color-primary)] sm:text-lg lg:text-lg">

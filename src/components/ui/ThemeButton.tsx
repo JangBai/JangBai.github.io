@@ -1,6 +1,6 @@
 "use client";
 
-import useDarkTheme from "@/hooks/DarkTheme";
+import useDarkTheme from "@/hooks/useDarkTheme";
 
 export default function ThemeButton() {
   const { isDark, toggleTheme } = useDarkTheme();
