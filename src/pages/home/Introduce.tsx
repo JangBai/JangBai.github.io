@@ -2,7 +2,7 @@ import { TypeAnimation } from "react-type-animation";
 
 export default function Introduce() {
   return (
-    <section className="justify-top relative mb-16 mt-32 flex h-[45rem] flex-col items-center gap-6 sm:h-[50rem] sm:gap-12">
+    <section className="justify-top md: relative mb-0 mt-16 flex h-[40rem] flex-col items-center gap-6 sm:mb-16 sm:mt-32 sm:h-[50rem] sm:gap-12">
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="text-center text-[var(--color-primary)]">
           <h2 className="text-4xl font-bold sm:text-6xl lg:text-6xl">
