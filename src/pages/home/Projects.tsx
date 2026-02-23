@@ -16,13 +16,13 @@ export default function Projects() {
           className="relative w-full rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6"
         >
           {/* 헤더 */}
-          <div className="mb-6 flex items-end justify-between">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
             <h3 className="bg-gradient-to-r from-slate-900 to-slate-500 bg-clip-text text-2xl font-semibold text-transparent dark:from-white dark:to-slate-400">
               {project.title}
             </h3>
 
             {project.links && project.links.length > 0 && (
-              <div className="flex gap-1.5">
+              <div className="flex flex-wrap gap-1.5">
                 {project.links.map((item) => (
                   <a
                     key={item.id}
