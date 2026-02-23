@@ -78,8 +78,8 @@ export const projects: ProjectItem[] = [
     id: 2,
     title: "NAEK / YEHS",
     subTitle: [
-      "NAEK : 공업 및 에너지 기술의 기반 조성을 위해 설립된 학술 연구기관",
-      "YEHS : 한국공학한림원이 주관하는 미래 공학 리더 양성 프로그램",
+      "NAEK - 공업 및 에너지 기술의 기반 조성을 위해 설립된 학술 연구기관",
+      "YEHS - 한국공학한림원이 주관하는 미래 공학 리더 양성 프로그램",
     ],
     descriptions: [
       "UI/UX 개선을 위한 디자인 시스템 반영 및 컴포넌트 리팩토링",
