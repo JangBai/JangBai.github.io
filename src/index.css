@@ -38,6 +38,12 @@ body {
   --color-accent-hover: linear-gradient(90deg, #6366f1, #8b5cf6);
 }
 
+@layer components {
+  .section-spacing {
+    @apply mb-0 mt-16 sm:mb-16 sm:mt-32;
+  }
+}
+
 /* ------ Animations ------ */
 
 /* Introduce */
