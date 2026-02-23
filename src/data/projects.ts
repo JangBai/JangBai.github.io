@@ -12,6 +12,7 @@ export type ProjectStack = {
 export type ProjectItem = {
   id: number;
   title: string;
+  subTitle: string[];
   descriptions: string[];
   links?: ProjectLink[];
   stacks: ProjectStack[];
@@ -21,6 +22,7 @@ export const projects: ProjectItem[] = [
   {
     id: 1,
     title: "법무법인 YK 센터 웹 서비스",
+    subTitle: [],
     descriptions: [
       "센터별 페이지 특성을 고려한 SEO 구조 설계 및 메타데이터 관리",
       "검색 API 및 검색 결과 로직 구현을 통해 사용자 검색 경험 개선",
@@ -68,6 +70,10 @@ export const projects: ProjectItem[] = [
   {
     id: 2,
     title: "NAEK / YEHS",
+    subTitle: [
+      "NAEK : 공업 및 에너지 기술의 기반 조성을 위해 설립된 학술 연구기관",
+      "YEHS : 한국공학한림원이 주관하는 미래 공학 리더 양성 프로그램",
+    ],
     descriptions: [
       "UI/UX 개선을 위한 디자인 시스템 반영 및 컴포넌트 리팩토링",
       "React Redux 를 활용한 전역 상태 관리 적용",

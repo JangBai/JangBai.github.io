@@ -17,7 +17,7 @@ export default function Projects() {
         >
           {/* 헤더 */}
           <div className="mb-6 flex items-end justify-between">
-            <h3 className="text-2xl font-semibold text-[var(--color-primary)]">
+            <h3 className="bg-gradient-to-r from-slate-900 to-slate-500 bg-clip-text text-2xl font-semibold text-transparent dark:from-white dark:to-slate-400">
               {project.title}
             </h3>
 
@@ -38,6 +38,14 @@ export default function Projects() {
             )}
           </div>
 
+          {project.subTitle && project.subTitle.length > 0 && (
+            <div className="flex flex-col gap-0.5 pb-6 text-sm text-[var(--color-primary)]">
+              {project.subTitle.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          )}
+
           {/* 설명 */}
           <ul className="space-y-1 leading-relaxed text-[var(--color-primary)]">
             {project.descriptions.map((desc, index) => (
@@ -50,7 +58,7 @@ export default function Projects() {
             {project.stacks.map((stack) => (
               <span
                 key={stack.name}
-                className="flex items-center gap-2 rounded-md border border-white/10 bg-black/10 px-3 py-1 text-[var(--color-primary)]"
+                className="flex items-center gap-2 rounded-md border border-white/10 bg-black/10 px-3 py-1 text-[var(--color-primary)] dark:bg-white/25"
               >
                 <img src={stack.icon} alt={stack.name} className="h-4 w-4" />
                 {stack.name}
