@@ -54,16 +54,34 @@ export default function Projects() {
           </ul>
 
           {/* 스택 */}
-          <div className="mt-6 flex flex-wrap gap-2 text-xs">
-            {project.stacks.map((stack) => (
-              <span
-                key={stack.name}
-                className="flex items-center gap-2 rounded-md border border-white/10 bg-black/10 px-3 py-1 text-[var(--color-primary)] dark:bg-white/25"
-              >
-                <img src={stack.icon} alt={stack.name} className="h-4 w-4" />
-                {stack.name}
-              </span>
-            ))}
+          <div className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs">
+            <span className="text-[var(--color-primary)]">Stack</span>
+            <div className="flex flex-wrap items-center gap-2">
+              {project.stacks.map((stack) => (
+                <span
+                  key={stack.name}
+                  className="flex items-center gap-2 rounded-md border border-white/10 bg-black/10 px-3 py-1 text-[var(--color-primary)] dark:bg-white/25"
+                >
+                  <img src={stack.icon} alt={stack.name} className="h-4 w-4" />
+                  {stack.name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs">
+            <span className="text-[var(--color-primary)]">Communication</span>
+            <div className="flex flex-wrap items-center gap-2">
+              {project.communication.map((stack) => (
+                <span
+                  key={stack.name}
+                  className="flex items-center gap-2 rounded-md border border-white/10 bg-black/10 px-3 py-1 text-[var(--color-primary)] dark:bg-white/25"
+                >
+                  <img src={stack.icon} alt={stack.name} className="h-4 w-4" />
+                  {stack.name}
+                </span>
+              ))}
+            </div>
           </div>
         </article>
       ))}

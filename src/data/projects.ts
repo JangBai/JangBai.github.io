@@ -16,6 +16,7 @@ export type ProjectItem = {
   descriptions: string[];
   links?: ProjectLink[];
   stacks: ProjectStack[];
+  communication: ProjectStack[];
 };
 
 export const projects: ProjectItem[] = [
@@ -66,6 +67,12 @@ export const projects: ProjectItem[] = [
       { name: "Express", icon: "/language_logo/express.svg" },
       { name: "SCSS", icon: "/language_logo/scss.svg" },
     ],
+    communication: [
+      { name: "Git/Github", icon: "/language_logo/github.svg" },
+      { name: "Slack", icon: "/language_logo/slack.svg" },
+      { name: "Jira", icon: "/language_logo/jira.svg" },
+      { name: "Figma", icon: "/language_logo/figma.svg" },
+    ],
   },
   {
     id: 2,
@@ -104,5 +111,6 @@ export const projects: ProjectItem[] = [
       { name: "SCSS", icon: "/language_logo/scss.svg" },
       { name: "PYTHON", icon: "/language_logo/python.svg" },
     ],
+    communication: [{ name: "Git/Github", icon: "/language_logo/github.svg" }],
   },
 ];
