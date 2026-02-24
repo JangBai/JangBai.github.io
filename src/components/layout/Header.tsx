@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-nav-background)] backdrop-blur-md">
-      <div className="flex items-center justify-between py-4">
+      <div className="flex items-center justify-between py-3">
         <h1>
           <a href="/" className="tracking-tight">
             <span className="text-xl font-bold text-[var(--color-primary)]">

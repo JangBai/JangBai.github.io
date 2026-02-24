@@ -1,6 +1,7 @@
-import Experience from "./Experience";
-import Projects from "./Projects";
-import Introduce from "./Introduce";
+import Experience from "@/components/home/Experience";
+import Projects from "@/components/home/Projects";
+import Introduce from "@/components/home/Introduce";
+import Connect from "@/components/home/Connect";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Introduce />
       <Experience />
       <Projects />
+      <Connect />
     </>
   );
 }
