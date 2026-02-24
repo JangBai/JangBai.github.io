@@ -15,7 +15,6 @@ export default function Projects() {
           key={project.id}
           className="relative w-full rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6"
         >
-          {/* 헤더 */}
           <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
             <h3 className="bg-gradient-to-r from-slate-900 to-slate-500 bg-clip-text text-2xl font-semibold text-transparent dark:from-white dark:to-slate-400">
               {project.title}
@@ -29,7 +28,7 @@ export default function Projects() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-md border border-white/10 bg-black/10 px-2 py-1 text-xs text-[var(--color-primary)] transition hover:bg-white/20"
+                    className="rounded-md border border-white/10 bg-black/10 px-2 py-1 text-xs text-[var(--color-primary)] transition hover:bg-white/30 dark:bg-white/20"
                   >
                     {item.title}
                   </a>
