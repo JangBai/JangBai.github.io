@@ -5,8 +5,8 @@ type nav = {
 
 export const nav: nav[] = [
   {
-    name: "About",
-    href: "#about",
+    name: "Introduce",
+    href: "#introduce",
   },
   {
     name: "Experience",
