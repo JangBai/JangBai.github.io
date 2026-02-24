@@ -29,7 +29,7 @@ export default function Projects() {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-0.5 rounded-md border border-white/10 bg-black/10 px-2 py-1 text-xs text-[var(--color-primary)] transition hover:bg-white/30 dark:bg-white/20"
+                    className="hover-accent flex items-center gap-0.5 rounded-md border border-white/10 bg-black/10 px-2 py-1 text-xs text-[var(--color-primary)]"
                   >
                     <span>{item.title}</span>
                     <span>

@@ -44,6 +44,26 @@ body {
   .section-spacing {
     @apply mb-0 mt-16 sm:mb-16 sm:mt-32;
   }
+
+  /* ------ Hover Effects ------ */
+  .hover-accent {
+    @apply border transition-all duration-300;
+    border-color: var(--color-accent-strong);
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .hover-accent:hover {
+    background-color: rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 0 1px var(--color-accent-soft);
+  }
+
+  .dark .hover-accent {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .dark .hover-accent:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
 }
 
 /* ------ Animations ------ */
