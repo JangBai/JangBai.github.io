@@ -1,5 +1,7 @@
 import { useContactForm } from "@/hooks/useContactForm";
+import { useEmailSend } from "@/hooks/useEmailSend";
 import { GrSend } from "react-icons/gr";
+import { useState } from "react";
 
 type FormValues = {
   name: string;
@@ -9,14 +11,23 @@ type FormValues = {
 };
 
 export default function ContactForm() {
+  const [visible, setVisible] = useState(false);
+
   const { values, errors, isSubmitting, handleChange, handleSubmit } =
     useContactForm();
 
+  const { sendEmail } = useEmailSend();
+
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
+    const result = await sendEmail(data);
+
+    if (result) {
+      setVisible(true);
+      setTimeout(() => setVisible(false), 3000);
+    }
   };
   return (
-    <div className="flex w-full flex-col items-center justify-center rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6 text-[var(--color-primary)]">
+    <div className="relative flex w-full flex-col items-center justify-center rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6 text-[var(--color-primary)]">
       <form
         className="w-full"
         onSubmit={(e) => {
@@ -99,6 +110,14 @@ export default function ContactForm() {
           </button>
         </div>
       </form>
+
+      {visible && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center rounded-xl bg-black/70 backdrop-blur-sm">
+          <div className="rounded-md bg-[var(--color-accent)] px-6 py-4 text-white shadow-lg">
+            메일이 성공적으로 전송되었습니다.
+          </div>
+        </div>
+      )}
     </div>
   );
 }
