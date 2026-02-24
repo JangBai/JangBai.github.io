@@ -1,6 +1,7 @@
 import { useNavScroll } from "@/hooks/useNavScroll";
 import { nav } from "@/data/nav";
-import ThemeButton from "../ui/ThemeButton";
+import ThemeButton from "@/components/ui/ThemeButton";
+import { GrSend } from "react-icons/gr";
 
 export default function Header() {
   const { activeSection, scrollToSection } = useNavScroll();
@@ -35,7 +36,16 @@ export default function Header() {
             );
           })}
         </nav>
-        <ThemeButton />
+        <div className="flex items-center gap-2">
+          <ThemeButton />
+          <button
+            type="button"
+            onClick={() => scrollToSection("connect")}
+            className="rounded-lg bg-[var(--color-accent)] px-1 py-1 text-white transition-all duration-300 hover:bg-[var(--color-accent-strong)]"
+          >
+            <GrSend />
+          </button>
+        </div>
       </div>
     </header>
   );

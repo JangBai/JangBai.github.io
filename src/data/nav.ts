@@ -16,4 +16,8 @@ export const nav: nav[] = [
     name: "Project",
     href: "#projects",
   },
+  {
+    name: "Connect",
+    href: "#connect",
+  },
 ];
