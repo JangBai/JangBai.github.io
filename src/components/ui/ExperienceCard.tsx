@@ -35,13 +35,15 @@ export default function ExperienceCard() {
 
               {item.sections.map((section, idx) => (
                 <div key={idx} className="mb-8">
-                  <h4 className="mb-3 text-lg font-semibold text-[var(--color-accent-strong)] dark:text-[var(--color-accent-soft)] lg:text-xl">
+                  <h4 className="mb-3 text-lg font-semibold tracking-wide text-black dark:text-white lg:text-xl">
                     {section.title}
                   </h4>
                   <ul className="text-md space-y-1 opacity-80 lg:text-lg">
                     {section.descriptions.map((desc, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <span className="h-1 w-1 rounded-full bg-[var(--color-primary)]"></span>
+                      <li
+                        key={i}
+                        className="relative pl-3 before:absolute before:left-0 before:top-[12px] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-accent-strong)] dark:before:bg-[var(--color-accent-soft)]"
+                      >
                         {desc}
                       </li>
                     ))}

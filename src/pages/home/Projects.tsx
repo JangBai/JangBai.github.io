@@ -50,11 +50,29 @@ export default function Projects() {
           )}
 
           {/* 설명 */}
-          <ul className="space-y-1 leading-relaxed text-[var(--color-primary)]">
-            {project.descriptions.map((desc, index) => (
-              <li key={index}>• {desc}</li>
+          <div className="space-y-10 text-[var(--color-primary)]">
+            {project.descriptions.map((description, descriptionIndex) => (
+              <div key={descriptionIndex}>
+                {/* 섹션 타이틀이 있는 경우만 출력 */}
+                {description.title && (
+                  <h4 className="mb-3 text-sm font-semibold tracking-wide text-black dark:text-white">
+                    {description.title}
+                  </h4>
+                )}
+
+                <ul className="space-y-1 leading-relaxed">
+                  {description.items.map((item, index) => (
+                    <li
+                      key={index}
+                      className="relative pl-3 before:absolute before:left-0 before:top-[12px] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-accent-strong)] dark:before:bg-[var(--color-accent-soft)]"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
 
           {/* 스택 */}
           <div className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs">
