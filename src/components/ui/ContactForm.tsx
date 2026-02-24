@@ -27,12 +27,12 @@ export default function ContactForm() {
         <div className="flex w-full flex-col items-center justify-between gap-4">
           <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="sm:w-2/1 flex h-24 w-full flex-col gap-2">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">이름</label>
               <input
                 name="name"
                 value={values.name}
                 onChange={handleChange}
-                placeholder="Name"
+                placeholder="이름을 입력해주세요"
                 className="w-full rounded-md border border-gray-500 bg-white/20 p-2 dark:bg-black/20"
               />
               {errors.name && (
@@ -41,12 +41,12 @@ export default function ContactForm() {
             </div>
 
             <div className="sm:w-2/1 flex h-24 w-full flex-col gap-2">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">이메일</label>
               <input
                 name="email"
                 value={values.email}
                 onChange={handleChange}
-                placeholder="Email"
+                placeholder="이메일을 입력해주세요"
                 className="w-full rounded-md border border-gray-500 bg-white/20 p-2 dark:bg-black/20"
               />
               {errors.email && (
@@ -56,12 +56,12 @@ export default function ContactForm() {
           </div>
 
           <div className="sm:w-2/1 flex h-24 w-full flex-col gap-2">
-            <label htmlFor="subject">Subject</label>
+            <label htmlFor="subject">제목</label>
             <input
               name="subject"
               value={values.subject}
               onChange={handleChange}
-              placeholder="Subject"
+              placeholder="제목을 입력해주세요"
               className="w-full rounded-md border border-gray-500 bg-white/20 p-2 dark:bg-black/20"
             />
             {errors.subject && (
@@ -70,12 +70,12 @@ export default function ContactForm() {
           </div>
 
           <div className="flex h-60 w-full flex-col gap-2">
-            <label htmlFor="message">Message</label>
+            <label htmlFor="message">내용</label>
             <textarea
               name="message"
               value={values.message}
               onChange={handleChange}
-              placeholder="Message"
+              placeholder="내용을 입력해주세요"
               className="h-60 w-full rounded-md border border-gray-500 bg-white/20 p-2 dark:bg-black/20"
             />
             {errors.message && (
@@ -88,11 +88,11 @@ export default function ContactForm() {
             className="mt-8 w-full rounded-md bg-[var(--color-accent-strong)] p-2 text-white dark:bg-[var(--color-accent)]"
           >
             {isSubmitting ? (
-              "Sending..."
+              "보내는 중"
             ) : (
               <>
                 <span className="flex items-center justify-center gap-2">
-                  Send Message <GrSend />
+                  문의하기 <GrSend />
                 </span>
               </>
             )}

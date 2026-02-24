@@ -21,7 +21,10 @@ export const useStarfield = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     const centerX = () => canvas.width / 2;
     const centerY = () => canvas.height / 2;
 
-    const stars = Array.from({ length: 50 }).map(() => {
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    const starCount = isMobile ? 20 : 50;
+
+    const stars = Array.from({ length: starCount }).map(() => {
       const x = Math.random() * canvas.width;
       const y = Math.random() * canvas.height;
 
