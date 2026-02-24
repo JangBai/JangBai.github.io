@@ -1,0 +1,104 @@
+import { projects } from "@/data/projects";
+import { RiShareBoxLine } from "react-icons/ri";
+
+export default function ProjectCard() {
+  return (
+    <>
+      {projects.map((project) => (
+        <article
+          key={project.id}
+          className="relative w-full rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6"
+        >
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
+            <h3 className="bg-gradient-to-r from-slate-900 to-slate-500 bg-clip-text text-2xl font-semibold text-transparent dark:from-white dark:to-slate-400">
+              {project.title}
+            </h3>
+
+            {project.links && project.links.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {project.links.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover-accent flex items-center gap-0.5 rounded-md border border-white/10 bg-black/10 px-2 py-1 text-xs text-[var(--color-primary)]"
+                  >
+                    <span>{item.title}</span>
+                    <span>
+                      <RiShareBoxLine className="h-4 w-4" />
+                    </span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {project.subTitle && project.subTitle.length > 0 && (
+            <div className="flex flex-col gap-0.5 pb-6 text-sm text-[var(--color-primary)]">
+              {project.subTitle.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          )}
+
+          {/* 설명 */}
+          <div className="space-y-10 text-[var(--color-primary)]">
+            {project.descriptions.map((description, descriptionIndex) => (
+              <div key={descriptionIndex}>
+                {/* 섹션 타이틀이 있는 경우만 출력 */}
+                {description.title && (
+                  <h4 className="mb-3 text-sm font-semibold tracking-wide text-black dark:text-white">
+                    {description.title}
+                  </h4>
+                )}
+
+                <ul className="space-y-1 leading-relaxed">
+                  {description.items.map((item, index) => (
+                    <li
+                      key={index}
+                      className="relative pl-3 before:absolute before:left-0 before:top-[12px] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-accent-strong)] dark:before:bg-[var(--color-accent-soft)]"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* 스택 */}
+          <div className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs">
+            <span className="text-[var(--color-primary)]">Stack</span>
+            <div className="flex flex-wrap items-center gap-2">
+              {project.stacks.map((stack) => (
+                <span
+                  key={stack.name}
+                  className="flex items-center gap-2 rounded-md border border-white/10 bg-black/10 px-3 py-1 text-[var(--color-primary)] dark:bg-white/25"
+                >
+                  <img src={stack.icon} alt={stack.name} className="h-4 w-4" />
+                  {stack.name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs">
+            <span className="text-[var(--color-primary)]">Communication</span>
+            <div className="flex flex-wrap items-center gap-2">
+              {project.communication.map((stack) => (
+                <span
+                  key={stack.name}
+                  className="flex items-center gap-2 rounded-md border border-white/10 bg-black/10 px-3 py-1 text-[var(--color-primary)] dark:bg-white/25"
+                >
+                  <img src={stack.icon} alt={stack.name} className="h-4 w-4" />
+                  {stack.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </>
+  );
+}
