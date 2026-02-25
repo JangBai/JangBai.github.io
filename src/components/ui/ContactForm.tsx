@@ -26,6 +26,7 @@ export default function ContactForm() {
       setTimeout(() => setVisible(false), 3000);
     }
   };
+
   return (
     <div className="relative flex w-full flex-col items-center justify-center rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6 text-[var(--color-primary)]">
       <form
@@ -96,7 +97,7 @@ export default function ContactForm() {
 
           <button
             disabled={isSubmitting}
-            className="mt-8 w-full rounded-md bg-[var(--color-accent-strong)] p-2 text-white dark:bg-[var(--color-accent)]"
+            className="mt-8 w-full rounded-md bg-[var(--color-accent-strong)] p-2 text-white transition-all duration-300 hover:bg-[var(--color-accent)] dark:bg-[var(--color-accent)] dark:hover:bg-[var(--color-accent-strong)]"
           >
             {isSubmitting ? (
               "보내는 중"
