@@ -15,7 +15,7 @@ export const useEmailSend = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
 
   const sendEmail = async (data: EmailParams) => {
-    // 🔒 Honeypot (봇 방지)
+    // Honeypot (봇 방지)
     if (data.company) return;
 
     setLoading(true);
@@ -37,12 +37,12 @@ export const useEmailSend = () => {
       );
 
       setSuccess(true);
-      return true; // ✅ 성공 반환
+      return true;
     } catch (err) {
       console.error(err);
       setEmailError("메일 전송에 실패했습니다.");
       setSuccess(false);
-      return false; // ❌ 실패 반환
+      return false;
     } finally {
       setLoading(false);
     }

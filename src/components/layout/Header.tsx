@@ -7,7 +7,7 @@ export default function Header() {
   const { activeSection, scrollToSection } = useNavScroll();
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--color-nav-background)] backdrop-blur-md">
+    <header className="sticky top-0 z-50 mx-auto max-w-4xl bg-[var(--color-nav-background)] px-6 backdrop-blur-md">
       <div className="flex items-center justify-between py-3">
         <h1>
           <a href="/" className="tracking-tight">
