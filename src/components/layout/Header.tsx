@@ -12,7 +12,7 @@ export default function Header() {
         <h1>
           <a href="/" className="tracking-tight">
             <span className="text-xl font-bold text-[var(--color-primary)]">
-              JB
+              JangBae
             </span>
           </a>
         </h1>
