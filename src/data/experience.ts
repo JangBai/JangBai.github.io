@@ -2,7 +2,10 @@ export type ExperienceItem = {
   id: number;
   company: string;
   position: string;
-  period: string;
+  period: {
+    duration: string;
+    team: string;
+  }[];
   sections: {
     title: string;
     descriptions: string[];
@@ -13,8 +16,17 @@ export const experienceData: ExperienceItem[] = [
   {
     id: 1,
     company: "법무법인 와이케이",
-    position: "주임 | 마케팅IT팀",
-    period: "2025.07 ~ 현재",
+    position: "주임",
+    period: [
+      {
+        duration: "2025.07 ~ 2026.04",
+        team: "마케팅IT팀",
+      },
+      {
+        duration: "2026.04 ~ 현재",
+        team: "디지털정보보안팀",
+      },
+    ],
     sections: [
       {
         title: "검색 중심 서비스 구조 및 SEO 설계",
@@ -42,8 +54,13 @@ export const experienceData: ExperienceItem[] = [
   {
     id: 2,
     company: "주식회사 아쿠시 (HSM클라우디피아)",
-    position: "사원 | 개발팀",
-    period: "2022.02 ~ 2025.02 (3년)",
+    position: "사원",
+    period: [
+      {
+        duration: "2022.02 ~ 2025.02 (3년)",
+        team: "개발팀",
+      },
+    ],
     sections: [
       {
         title: "클라이언트 맞춤형 ERP 및 업무 시스템 프론트엔드 개발",

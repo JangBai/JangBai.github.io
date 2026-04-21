@@ -26,11 +26,14 @@ export default function ExperienceCard() {
                       {item.company}
                     </span>
                   </div>
-                  <p className="text-sm opacity-70 md:text-lg">
-                    {item.position}
-                  </p>
                 </div>
-                <p className="mt-2 text-sm opacity-50">{item.period}</p>
+                <div className="mt-2 space-y-1 text-sm opacity-50">
+                  {item.period.map((period, idx) => (
+                    <p key={idx}>
+                      {period.duration} | {period.team} - {item.position}
+                    </p>
+                  ))}
+                </div>
               </div>
 
               {item.sections.map((section, idx) => (
