@@ -17,14 +17,20 @@ export const experienceData: ExperienceItem[] = [
     id: 1,
     company: "법무법인 와이케이",
     position: "주임",
+    // period: [
+    //   {
+    //     duration: "2025.07 ~ 2026.04",
+    //     team: "마케팅IT팀",
+    //   },
+    //   {
+    //     duration: "2026.04 ~ 현재",
+    //     team: "디지털정보보안팀",
+    //   },
+    // ],
     period: [
       {
-        duration: "2025.07 ~ 2026.04",
+        duration: "2025.07 ~ 현재",
         team: "마케팅IT팀",
-      },
-      {
-        duration: "2026.04 ~ 현재",
-        team: "디지털정보보안팀",
       },
     ],
     sections: [
