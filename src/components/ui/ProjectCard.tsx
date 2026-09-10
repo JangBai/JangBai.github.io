@@ -57,7 +57,7 @@ export default function ProjectCard() {
                 {description.title && (
                   <h4
                     data-reveal="subheading"
-                    className="mb-3 text-sm font-semibold tracking-wide text-black dark:text-white"
+                    className="mb-3 text-md font-semibold tracking-wide text-black dark:text-white"
                   >
                     {description.title}
                   </h4>
@@ -68,7 +68,7 @@ export default function ProjectCard() {
                     <li
                       key={index}
                       data-reveal="line"
-                      className="relative pl-3 before:absolute before:left-0 before:top-[12px] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-accent-strong)] dark:before:bg-[var(--color-accent-soft)]"
+                      className="relative text-sm pl-3 before:absolute before:left-0 before:top-[12px] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-accent-strong)] dark:before:bg-[var(--color-accent-soft)]"
                     >
                       {item}
                     </li>

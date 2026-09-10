@@ -11,6 +11,11 @@ export function useScrollMotion() {
     const hero = root.querySelector<HTMLElement>(".hero-journey");
     const targets = root.querySelectorAll<HTMLElement>("[data-reveal]");
     const scenes = root.querySelectorAll<HTMLElement>("[data-scene]");
+    const stories = root.querySelectorAll<HTMLElement>("[data-story]");
+    const headings = root.querySelectorAll<HTMLElement>(
+      '[data-reveal="heading"]'
+    );
+    const clamp = (value: number) => Math.min(1, Math.max(0, value));
     let frame = 0;
     let observer: IntersectionObserver | undefined;
 
@@ -21,6 +26,39 @@ export function useScrollMotion() {
       const distance = Math.max(1, hero.offsetHeight - window.innerHeight);
       const progress = Math.min(1, Math.max(0, -rect.top / distance));
       hero.style.setProperty("--hero-progress", String(progress));
+      root.style.setProperty(
+        "--page-progress",
+        String(
+          clamp(
+            window.scrollY /
+              Math.max(
+                1,
+                document.documentElement.scrollHeight - window.innerHeight
+              )
+          )
+        )
+      );
+      stories.forEach((story) => {
+        const bounds = story.getBoundingClientRect();
+        const pinned =
+          story.dataset.story === "pinned" && window.innerHeight > 600;
+        const progress = pinned
+          ? -bounds.top / Math.max(1, bounds.height - window.innerHeight)
+          : (window.innerHeight * 0.85 - bounds.top) /
+            (bounds.height * 0.65 + window.innerHeight * 0.2);
+        story.style.setProperty("--story-progress", String(clamp(progress)));
+      });
+      headings.forEach((heading) => {
+        const top = heading.getBoundingClientRect().top;
+        heading.style.setProperty(
+          "--heading-enter",
+          String(
+            clamp(
+              (top - window.innerHeight * 0.35) / (window.innerHeight * 0.65)
+            )
+          )
+        );
+      });
       scenes.forEach((scene) => {
         // Measure layout coordinates, not the animated bounding box.
         let layoutTop = 0;
@@ -50,6 +88,7 @@ export function useScrollMotion() {
       if (!frame) frame = requestAnimationFrame(update);
     };
     const configure = () => {
+      root.classList.toggle("motion-enabled", !preference.matches);
       observer?.disconnect();
       targets.forEach((target) => target.classList.remove("reveal-pending"));
       hero?.style.removeProperty("--hero-progress");
@@ -87,13 +126,17 @@ export function useScrollMotion() {
       if (target) observer?.unobserve(target);
     };
     configure();
+    const resizeObserver = new ResizeObserver(schedule);
+    resizeObserver.observe(root);
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     preference.addEventListener("change", configure);
     root.addEventListener("focusin", revealFocused);
     return () => {
+      root.classList.remove("motion-enabled");
       cancelAnimationFrame(frame);
       observer?.disconnect();
+      resizeObserver.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       preference.removeEventListener("change", configure);
