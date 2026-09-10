@@ -1,28 +1,27 @@
 import { useState, useEffect } from "react";
+import { scrollToWithLenis } from "@/hooks/useLenis";
 
 export const useNavScroll = () => {
   const [activeSection, setActiveSection] = useState<string>("introduce");
 
   useEffect(() => {
-    const sections = document.querySelectorAll("section[id]");
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("section[id]")
+    );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
+          )[0];
+        if (visible) setActiveSection((visible.target as HTMLElement).id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
+    );
+    sections.forEach((section) => observer.observe(section));
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-
-      sections.forEach((section) => {
-        const element = section as HTMLElement;
-        const sectionTop = element.getBoundingClientRect().top + window.scrollY;
-
-        if (scrollY >= sectionTop - window.innerHeight * 0.3) {
-          setActiveSection(element.id);
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // 초기 실행
-
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -33,12 +32,12 @@ export const useNavScroll = () => {
     const elementPosition =
       element.getBoundingClientRect().top + window.scrollY - headerOffset;
 
-    window.scrollTo({
-      top: elementPosition,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
-    });
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.scrollTo({ top: elementPosition, behavior: "instant" });
+      return;
+    }
+
+    scrollToWithLenis(elementPosition);
   };
 
   return { activeSection, scrollToSection };

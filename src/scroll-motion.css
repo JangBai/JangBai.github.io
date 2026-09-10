@@ -104,7 +104,6 @@
 .motion-enabled .intro-section .hero-title {
   transform: translateY(calc(var(--hero-progress) * -100px))
     scale(calc(1 + var(--hero-progress) * 0.18));
-  filter: blur(calc(var(--hero-progress) * 5px));
 }
 .motion-enabled .intro-section .cosmos {
   transform: scale(calc(1 + var(--hero-progress) * 0.7))

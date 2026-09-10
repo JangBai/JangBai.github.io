@@ -18,19 +18,60 @@ export function useScrollMotion() {
     const clamp = (value: number) => Math.min(1, Math.max(0, value));
     let frame = 0;
     let observer: IntersectionObserver | undefined;
+    let layoutDirty = true;
+    let heroTop = 0;
+    let heroHeight = 0;
+    const storyLayout = new Map<HTMLElement, { top: number; height: number }>();
+    const headingLayout = new Map<HTMLElement, number>();
+    const sceneLayout = new Map<HTMLElement, { top: number; height: number }>();
+
+    // Reading layout during every scroll frame forces synchronous reflow. Cache
+    // document coordinates and refresh them only when the layout can change.
+    const measureLayout = () => {
+      const scrollY = window.scrollY;
+      if (hero) {
+        heroTop = hero.getBoundingClientRect().top + scrollY;
+        heroHeight = hero.offsetHeight;
+      }
+      storyLayout.clear();
+      headingLayout.clear();
+      sceneLayout.clear();
+      stories.forEach((story) => {
+        const bounds = story.getBoundingClientRect();
+        storyLayout.set(story, {
+          top: bounds.top + scrollY,
+          height: bounds.height,
+        });
+      });
+      headings.forEach((heading) => {
+        headingLayout.set(
+          heading,
+          heading.getBoundingClientRect().top + scrollY
+        );
+      });
+      scenes.forEach((scene) => {
+        const bounds = scene.getBoundingClientRect();
+        sceneLayout.set(scene, {
+          top: bounds.top + scrollY,
+          height: bounds.height,
+        });
+      });
+      layoutDirty = false;
+    };
 
     const update = () => {
       frame = 0;
       if (!hero || preference.matches) return;
-      const rect = hero.getBoundingClientRect();
-      const distance = Math.max(1, hero.offsetHeight - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, -rect.top / distance));
+      if (layoutDirty) measureLayout();
+      const scrollY = window.scrollY;
+      const distance = Math.max(1, heroHeight - window.innerHeight);
+      const progress = Math.min(1, Math.max(0, (scrollY - heroTop) / distance));
       hero.style.setProperty("--hero-progress", String(progress));
       root.style.setProperty(
         "--page-progress",
         String(
           clamp(
-            window.scrollY /
+            scrollY /
               Math.max(
                 1,
                 document.documentElement.scrollHeight - window.innerHeight
@@ -39,17 +80,21 @@ export function useScrollMotion() {
         )
       );
       stories.forEach((story) => {
-        const bounds = story.getBoundingClientRect();
+        const layout = storyLayout.get(story);
+        if (!layout) return;
+        const top = layout.top - scrollY;
         const pinned =
           story.dataset.story === "pinned" && window.innerHeight > 600;
         const progress = pinned
-          ? -bounds.top / Math.max(1, bounds.height - window.innerHeight)
-          : (window.innerHeight * 0.85 - bounds.top) /
-            (bounds.height * 0.65 + window.innerHeight * 0.2);
+          ? -top / Math.max(1, layout.height - window.innerHeight)
+          : (window.innerHeight * 0.85 - top) /
+            (layout.height * 0.65 + window.innerHeight * 0.2);
         story.style.setProperty("--story-progress", String(clamp(progress)));
       });
       headings.forEach((heading) => {
-        const top = heading.getBoundingClientRect().top;
+        const layoutTop = headingLayout.get(heading);
+        if (layoutTop === undefined) return;
+        const top = layoutTop - scrollY;
         heading.style.setProperty(
           "--heading-enter",
           String(
@@ -60,16 +105,11 @@ export function useScrollMotion() {
         );
       });
       scenes.forEach((scene) => {
-        // Measure layout coordinates, not the animated bounding box.
-        let layoutTop = 0;
-        let ancestor: HTMLElement | null = scene;
-        while (ancestor) {
-          layoutTop += ancestor.offsetTop;
-          ancestor = ancestor.offsetParent as HTMLElement | null;
-        }
+        const layout = sceneLayout.get(scene);
+        if (!layout) return;
         const bounds = {
-          top: layoutTop - window.scrollY,
-          bottom: layoutTop - window.scrollY + scene.offsetHeight,
+          top: layout.top - scrollY,
+          bottom: layout.top - scrollY + layout.height,
         };
         const viewport = window.innerHeight;
         const enter = Math.min(
@@ -86,6 +126,10 @@ export function useScrollMotion() {
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
+    };
+    const refreshLayout = () => {
+      layoutDirty = true;
+      schedule();
     };
     const configure = () => {
       root.classList.toggle("motion-enabled", !preference.matches);
@@ -126,10 +170,10 @@ export function useScrollMotion() {
       if (target) observer?.unobserve(target);
     };
     configure();
-    const resizeObserver = new ResizeObserver(schedule);
+    const resizeObserver = new ResizeObserver(refreshLayout);
     resizeObserver.observe(root);
     window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
+    window.addEventListener("resize", refreshLayout);
     preference.addEventListener("change", configure);
     root.addEventListener("focusin", revealFocused);
     return () => {
@@ -138,7 +182,7 @@ export function useScrollMotion() {
       observer?.disconnect();
       resizeObserver.disconnect();
       window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
+      window.removeEventListener("resize", refreshLayout);
       preference.removeEventListener("change", configure);
       root.removeEventListener("focusin", revealFocused);
       targets.forEach((target) => target.classList.remove("reveal-pending"));
