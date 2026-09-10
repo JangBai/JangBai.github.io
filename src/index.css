@@ -738,7 +738,7 @@ section[id] {
   overflow-wrap: anywhere;
 }
 #projects {
-  overflow: clip;
+  overflow: visible;
   padding: 0 2px;
 }
 #projects article {
