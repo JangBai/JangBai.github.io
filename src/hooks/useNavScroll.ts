@@ -11,10 +11,9 @@ export const useNavScroll = () => {
 
       sections.forEach((section) => {
         const element = section as HTMLElement;
-        const sectionTop = element.offsetTop;
-        const sectionHeight = element.offsetHeight;
+        const sectionTop = element.getBoundingClientRect().top + window.scrollY;
 
-        if (scrollY >= sectionTop - sectionHeight / 3) {
+        if (scrollY >= sectionTop - window.innerHeight * 0.3) {
           setActiveSection(element.id);
         }
       });
@@ -31,11 +30,14 @@ export const useNavScroll = () => {
     if (!element) return;
 
     const headerOffset = 80; // 헤더 높이 보정
-    const elementPosition = element.offsetTop - headerOffset;
+    const elementPosition =
+      element.getBoundingClientRect().top + window.scrollY - headerOffset;
 
     window.scrollTo({
       top: elementPosition,
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
     });
   };
 

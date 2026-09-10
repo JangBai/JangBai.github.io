@@ -3,77 +3,84 @@ import { useEffect } from "react";
 export const useStarfield = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let lastTime = 0;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let color = "#ffffff";
+    let stars: { x: number; y: number; depth: number; radius: number }[] = [];
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    const draw = (time: number) => {
+      frame = 0;
+      const delta = Math.min((time - lastTime) / 16.67 || 1, 2);
+      lastTime = time;
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = color;
+      for (const star of stars) {
+        if (!preference.matches) {
+          star.y -= 0.06 * star.depth * delta;
+          if (star.y < 0) star.y = height;
+        }
+        const offset = preference.matches
+          ? 0
+          : window.scrollY * star.depth * 0.035;
+        const y = (((star.y - offset) % height) + height) % height;
+        ctx.globalAlpha = 0.25 + star.depth * 0.2;
+        ctx.beginPath();
+        ctx.arc(star.x, y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (!preference.matches && !document.hidden)
+        frame = requestAnimationFrame(draw);
     };
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    const centerX = () => canvas.width / 2;
-    const centerY = () => canvas.height / 2;
-
-    const isMobile = window.matchMedia("(max-width: 640px)").matches;
-    const starCount = isMobile ? 20 : 50;
-
-    const stars = Array.from({ length: starCount }).map(() => {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-
-      return {
-        x,
-        y,
-        angle: Math.atan2(y - centerY(), x - centerX()),
-        speed: Math.random() * 0.1 + 0.02,
-        radius: Math.random() * 1.5 + 0.3,
-      };
-    });
-
-    const getPrimaryColor = () =>
-      getComputedStyle(document.documentElement)
+    const restart = () => {
+      cancelAnimationFrame(frame);
+      lastTime = 0;
+      draw(performance.now());
+    };
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      stars = Array.from({ length: width < 640 ? 35 : 85 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        depth: 0.4 + Math.random() * 1.6,
+        radius: 0.3 + Math.random() * 1.1,
+      }));
+      restart();
+    };
+    const updateTheme = () => {
+      color = getComputedStyle(document.documentElement)
         .getPropertyValue("--color-primary")
         .trim();
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = getPrimaryColor();
-
-      stars.forEach((star) => {
-        star.x += Math.cos(star.angle) * star.speed;
-        star.y += Math.sin(star.angle) * star.speed;
-
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        if (
-          star.x < 0 ||
-          star.x > canvas.width ||
-          star.y < 0 ||
-          star.y > canvas.height
-        ) {
-          star.x = Math.random() * canvas.width;
-          star.y = Math.random() * canvas.height;
-          star.angle = Math.atan2(star.y - centerY(), star.x - centerX());
-        }
-      });
-
-      animationFrameId = requestAnimationFrame(animate);
+      restart();
     };
-
-    animate();
-
+    const themeObserver = new MutationObserver(updateTheme);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    updateTheme();
+    resize();
+    window.addEventListener("resize", resize);
+    document.addEventListener("visibilitychange", restart);
+    preference.addEventListener("change", restart);
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(frame);
+      themeObserver.disconnect();
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", restart);
+      preference.removeEventListener("change", restart);
     };
   }, [canvasRef]);
 };

@@ -96,3 +96,886 @@ body {
 .animate-glow {
   animation: pulseGlow 3s ease-in-out infinite;
 }
+/* Scroll choreography: keep content in the document flow on every screen. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+.intro-section {
+  position: relative;
+}
+.hero-journey {
+  --hero-progress: 0;
+  height: 155svh;
+  min-height: 760px;
+}
+.hero-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+.hero-title {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  transform: translateY(calc(var(--hero-progress) * -65px))
+    scale(calc(1 + var(--hero-progress) * 0.12));
+  opacity: calc(1 - var(--hero-progress) * 0.9);
+  will-change: transform, opacity;
+}
+.hero-name {
+  font-size: clamp(2.25rem, 7.5vw, 6rem);
+  line-height: 1.12;
+  letter-spacing: -0.065em;
+  animation: title-arrive 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-role {
+  font-size: clamp(1.4rem, 4.4vw, 3.5rem);
+  letter-spacing: -0.045em;
+  animation: title-arrive 1.3s 0.12s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-title > div:last-child {
+  min-height: 2rem;
+  animation: title-arrive 1.3s 0.24s both;
+}
+.dark .hero-name {
+  text-shadow: 0 0 70px #a5b4fc60;
+}
+.cosmos {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: clip;
+  transform: scale(calc(1 + var(--hero-progress) * 0.55));
+  opacity: calc(1 - var(--hero-progress) * 0.65);
+  mask-image: linear-gradient(transparent, black 14%, black 80%, transparent);
+}
+.cosmos-haze {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 52%, #6366f138, transparent 62%);
+}
+.cosmos-core {
+  position: absolute;
+  width: min(55vw, 470px);
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 18%, #a5b4fc30, transparent 65%);
+  box-shadow:
+    inset 0 2px 3px #a5b4fc80,
+    0 -16px 70px #6366f128;
+}
+.cosmos-orbit {
+  position: absolute;
+  left: 10%;
+  top: 17%;
+  width: 80%;
+  height: 66%;
+  border: 1px solid #818cf85c;
+  border-radius: 50%;
+  box-shadow:
+    0 0 22px #6366f115,
+    inset 0 0 20px #6366f110;
+}
+.cosmos-orbit::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  left: 15%;
+  top: 14%;
+  background: #c7d2fe;
+  box-shadow:
+    0 0 10px #a5b4fc,
+    0 0 28px #818cf8;
+}
+.cosmos-orbit-one {
+  transform: rotate(-28deg) scaleY(0.55);
+  animation: orbit-drift 16s ease-in-out infinite alternate;
+}
+.cosmos-orbit-two {
+  transform: rotate(32deg) scaleY(0.65);
+  opacity: 0.6;
+}
+.cosmos-orbit-three {
+  transform: rotate(-65deg) scaleY(0.82);
+  opacity: 0.25;
+}
+.cosmos-flare {
+  position: absolute;
+  top: 68%;
+  left: 12%;
+  width: 76%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #a5b4fc, transparent);
+  box-shadow: 0 0 18px 2px #6366f150;
+  transform: rotate(-12deg);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 6svh;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: calc(1 - var(--hero-progress) * 2);
+}
+.intro-story {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 7svh, 5rem);
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 0 6rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+  line-height: 1.9;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.intro-story > span:first-child {
+  font-size: clamp(1.5rem, 3.7vw, 2.5rem);
+  font-weight: 650;
+  line-height: 1.65;
+  letter-spacing: -0.04em;
+}
+[data-reveal] {
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s;
+}
+.reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0);
+}
+[data-reveal="heading"].reveal-pending {
+  transform: translate3d(0, 32px, 0) scale(0.94);
+  filter: blur(5px);
+}
+[data-reveal="card"].reveal-pending {
+  transform: translate3d(0, 50px, 0) scale(0.97);
+}
+[data-reveal="story"].reveal-pending {
+  opacity: 0.12;
+  transform: translate3d(0, 28px, 0);
+}
+[data-reveal]:focus-within {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+#projects article {
+  transition:
+    opacity 0.9s,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s,
+    box-shadow 0.35s;
+}
+@media (hover: hover) and (pointer: fine) {
+  #projects article:hover {
+    border-color: #818cf870;
+    box-shadow: 0 12px 50px -20px #6366f160;
+  }
+}
+@keyframes title-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes orbit-drift {
+  from {
+    transform: rotate(-28deg) scaleY(0.55);
+  }
+  to {
+    transform: rotate(-12deg) scaleY(0.65);
+  }
+}
+@media (max-width: 767px) {
+  .hero-journey {
+    height: 135svh;
+    min-height: 650px;
+  }
+  .hero-stage {
+    min-height: 440px;
+  }
+  .cosmos-orbit {
+    left: 3%;
+    width: 94%;
+    top: 24%;
+    height: 48%;
+  }
+  .cosmos-core {
+    width: 70%;
+  }
+  .hero-title {
+    transform: translateY(calc(var(--hero-progress) * -30px));
+  }
+  .intro-story {
+    padding: 2rem 0 3rem;
+  }
+  .reveal-pending,
+  [data-reveal="card"].reveal-pending {
+    transform: translate3d(0, 22px, 0);
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-journey {
+    height: auto;
+    min-height: 0;
+  }
+  .hero-stage {
+    position: relative;
+    height: 520px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-journey {
+    height: auto;
+    min-height: 0;
+  }
+  .hero-stage {
+    position: relative;
+  }
+  .hero-title,
+  .cosmos,
+  .hero-scroll,
+  [data-reveal] {
+    opacity: 1;
+  }
+  .hero-title,
+  .cosmos,
+  [data-reveal] {
+    transform: none;
+    filter: none;
+    will-change: auto;
+  }
+}
+
+/* Keep these after the earlier 3D experiment so the narrative handoff wins. */
+.intro-section .hero-journey {
+  height: 128svh;
+  min-height: 680px;
+}
+
+.intro-section .hero-title {
+  transform: translate3d(0, calc(var(--hero-progress) * -28px), 0);
+  opacity: calc(1 - var(--hero-progress) * 1.05);
+}
+
+.intro-section .cosmos {
+  transform: translate3d(0, calc(var(--hero-progress) * -52px), 0);
+  opacity: calc(1 - var(--hero-progress) * 1.15);
+}
+
+.intro-section .cosmos-core {
+  transform: translate(-50%, calc(-50% + var(--hero-progress) * -22px));
+}
+
+.intro-section .cosmos-depth i,
+.intro-section .cosmos-depth i:nth-child(2),
+.intro-section .cosmos-depth i:nth-child(3) {
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .intro-section .hero-journey {
+    height: 118svh;
+    min-height: 590px;
+  }
+
+  .intro-section .hero-title {
+    transform: translate3d(0, calc(var(--hero-progress) * -16px), 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-title,
+  .intro-section .cosmos {
+    transform: none;
+  }
+
+  .intro-section .cosmos-core {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Section choreography: each reading block enters as a new scene, then
+   settles before the next one arrives. */
+[data-reveal="story-panel"],
+[data-reveal="section-panel"] {
+  transform-origin: 50% 100%;
+}
+
+[data-reveal="story-panel"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 80px, 0) scale(0.94);
+}
+
+[data-reveal="story"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 46px, 0);
+  filter: blur(7px);
+}
+
+[data-reveal="section-panel"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 96px, 0) scale(0.92);
+  filter: blur(8px);
+}
+
+[data-reveal="company"].reveal-pending,
+[data-reveal="card-title"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 58px, 0) scale(0.84);
+  filter: blur(8px);
+}
+
+[data-reveal="subheading"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(-38px, 0, 0);
+}
+
+[data-reveal="line"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(38px, 14px, 0);
+}
+
+[data-reveal="stacks"].reveal-pending,
+[data-reveal="contact-intro"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 44px, 0) scale(0.9);
+  filter: blur(4px);
+}
+
+.intro-story > span:nth-child(2),
+.experience-scene [data-reveal="line"]:nth-child(2),
+#projects [data-reveal="line"]:nth-child(2) {
+  transition-delay: 100ms;
+}
+
+.intro-story > span:nth-child(3),
+.experience-scene [data-reveal="line"]:nth-child(3),
+#projects [data-reveal="line"]:nth-child(3) {
+  transition-delay: 200ms;
+}
+
+.intro-story > span:nth-child(4),
+.experience-scene [data-reveal="line"]:nth-child(n + 4),
+#projects [data-reveal="line"]:nth-child(n + 4) {
+  transition-delay: 300ms;
+}
+
+[data-reveal="story-panel"],
+[data-reveal="section-panel"],
+[data-reveal="company"],
+[data-reveal="card-title"],
+[data-reveal="contact-intro"] {
+  transition-duration: 1.15s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 767px) {
+  [data-reveal="story-panel"].reveal-pending,
+  [data-reveal="section-panel"].reveal-pending {
+    transform: translate3d(0, 48px, 0) scale(0.97);
+  }
+
+  [data-reveal="story"].reveal-pending {
+    transform: translate3d(0, 28px, 0);
+  }
+
+  [data-reveal="company"].reveal-pending,
+  [data-reveal="card-title"].reveal-pending {
+    transform: translate3d(0, 34px, 0) scale(0.93);
+  }
+}
+.typing-static {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .typing-static {
+    display: inline;
+  }
+  .typing-animated {
+    display: none;
+  }
+}
+.hero-stage {
+  overflow: clip;
+}
+
+/* Narrative handoff: the hero dissolves into the introduction instead of
+   enlarging and leaving a persistent afterimage. */
+.hero-journey {
+  height: 128svh;
+  min-height: 680px;
+}
+
+.hero-stage::after {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 28%;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--color-background));
+  opacity: var(--hero-progress);
+}
+
+.hero-title {
+  transform: translate3d(0, calc(var(--hero-progress) * -28px), 0);
+  opacity: calc(1 - var(--hero-progress) * 1.05);
+  transition: none;
+}
+
+.cosmos {
+  transform: translate3d(0, calc(var(--hero-progress) * -52px), 0);
+  opacity: calc(1 - var(--hero-progress) * 1.15);
+  transition: none;
+}
+
+.cosmos-core {
+  transform: translate(-50%, calc(-50% + var(--hero-progress) * -22px));
+}
+
+.cosmos-depth i,
+.cosmos-depth i:nth-child(2),
+.cosmos-depth i:nth-child(3) {
+  transform: none;
+}
+
+.intro-story {
+  padding-top: clamp(2rem, 6svh, 4.5rem);
+}
+
+.intro-story > span {
+  transition-duration: 1.05s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.intro-story > span:nth-child(2) {
+  transition-delay: 80ms;
+}
+
+.intro-story > span:nth-child(3) {
+  transition-delay: 140ms;
+}
+
+.intro-story > span:nth-child(4) {
+  transition-delay: 200ms;
+}
+
+[data-reveal="story"].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  filter: blur(2px);
+}
+
+@media (max-width: 767px) {
+  .hero-journey {
+    height: 118svh;
+    min-height: 590px;
+  }
+
+  .hero-title {
+    transform: translate3d(0, calc(var(--hero-progress) * -16px), 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stage::after {
+    opacity: 0;
+  }
+
+  .hero-title,
+  .cosmos {
+    transform: none;
+  }
+
+  .cosmos-core {
+    transform: translate(-50%, -50%);
+  }
+}
+/* Full-bleed, perspective-driven opening scene. */
+.hero-journey,
+.hero-stage {
+  width: 100%;
+  max-width: 100%;
+}
+.hero-stage {
+  perspective: 1100px;
+}
+.hero-title {
+  max-width: 1100px;
+}
+.intro-story {
+  width: calc(100% - 2rem);
+}
+.cosmos {
+  transform: perspective(1100px) translateZ(calc(var(--hero-progress) * 230px))
+    rotateX(calc(var(--hero-progress) * 12deg))
+    rotateY(calc(var(--hero-progress) * -9deg))
+    scale(calc(1 + var(--hero-progress) * 0.3));
+}
+.cosmos-orbit {
+  left: 15%;
+  width: 70%;
+}
+.cosmos-orbit-two {
+  transform: perspective(800px) rotateX(54deg) rotateY(-18deg) rotateZ(32deg);
+}
+.cosmos-orbit-three {
+  transform: perspective(800px) rotateX(-32deg) rotateY(48deg) rotateZ(-48deg);
+  opacity: 0.5;
+}
+.cosmos-core {
+  background: radial-gradient(
+    circle at 35% 20%,
+    #a5b4fc55,
+    #6366f11c 35%,
+    transparent 65%
+  );
+  transform: translate(-50%, -50%) perspective(800px)
+    translateZ(calc(var(--hero-progress) * 100px));
+}
+.cosmos-depth {
+  position: absolute;
+  inset: 0;
+  perspective: 700px;
+}
+.cosmos-depth i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #a5b4fc;
+  border-radius: 50%;
+  box-shadow: 0 0 18px 3px #818cf890;
+  left: 23%;
+  top: 28%;
+  transform: translate3d(
+    calc(var(--hero-progress) * -160px),
+    calc(var(--hero-progress) * -80px),
+    calc(var(--hero-progress) * 350px)
+  );
+}
+.cosmos-depth i:nth-child(2) {
+  left: 75%;
+  top: 65%;
+  transform: translate3d(
+    calc(var(--hero-progress) * 160px),
+    calc(var(--hero-progress) * 90px),
+    calc(var(--hero-progress) * 280px)
+  );
+}
+.cosmos-depth i:nth-child(3) {
+  left: 65%;
+  top: 20%;
+  width: 3px;
+  height: 3px;
+  transform: translateZ(calc(var(--hero-progress) * 400px));
+}
+
+/* Cards settle flat before the reading area, then recede after it. */
+[data-scene] {
+  --scene-enter: 0;
+  --scene-leave: 0;
+}
+.experience-scene {
+  position: relative;
+  padding: 3rem 1.5rem 1rem;
+  border-top: 1px solid #818cf844;
+  transform: perspective(1000px) translateY(calc(var(--scene-enter) * 55px))
+    rotateX(calc(var(--scene-enter) * 7deg))
+    scale(calc(1 - var(--scene-enter) * 0.08 - var(--scene-leave) * 0.025));
+  transform-origin: 50% 20%;
+}
+.experience-scene::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent-soft);
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--color-accent);
+}
+.experience-detail {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.experience-line {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+#projects {
+  overflow: clip;
+  padding: 0 2px;
+}
+#projects article {
+  --slide-direction: 1;
+  transform: perspective(1200px)
+    translateX(calc(var(--scene-enter) * 65px * var(--slide-direction)))
+    translateY(calc(var(--scene-enter) * 40px))
+    rotateY(calc(var(--scene-enter) * -7deg * var(--slide-direction)))
+    scale(calc(1 - var(--scene-enter) * 0.07 - var(--scene-leave) * 0.025));
+  transform-origin: 50% 15%;
+  transition:
+    border-color 0.35s,
+    box-shadow 0.35s;
+}
+#projects article:nth-child(even) {
+  --slide-direction: -1;
+}
+#projects article::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  top: 0;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #a5b4fcaa, transparent);
+  transform: scaleX(calc(1 - var(--scene-enter)));
+  transform-origin: left;
+}
+[data-reveal="line"] {
+  transition-duration: 0.65s;
+}
+[data-reveal="line"]:nth-child(2) {
+  transition-delay: 0.05s;
+}
+[data-reveal="line"]:nth-child(3) {
+  transition-delay: 0.1s;
+}
+[data-reveal="line"]:nth-child(n + 4) {
+  transition-delay: 0.15s;
+}
+[data-reveal="line"].reveal-pending {
+  transform: translate3d(18px, 12px, 0);
+}
+[data-reveal="heading"].reveal-pending {
+  transform: perspective(800px) translateY(45px) rotateX(15deg) scale(0.82);
+}
+.experience-detail.reveal-pending {
+  transform: translateY(30px) scale(0.94);
+}
+[data-scene]:focus-within {
+  transform: none !important;
+}
+
+.send-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 46px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.send-plane {
+  display: inline-flex;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.send-label {
+  position: relative;
+  z-index: 2;
+}
+.send-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    #ffffff35 50%,
+    transparent 80%
+  );
+  transform: translateX(-110%);
+  transition: transform 0.65s;
+}
+.send-trail {
+  position: absolute;
+  width: 48px;
+  height: 1px;
+  left: calc(50% + 24px);
+  top: 50%;
+  background: linear-gradient(90deg, transparent, #ffffffb0);
+  opacity: 0;
+}
+.send-button:hover::before,
+.send-button:focus-visible::before {
+  transform: translateX(110%);
+}
+.send-button:hover .send-plane,
+.send-button:focus-visible .send-plane {
+  transform: translate(5px, -3px) rotate(-12deg);
+}
+.send-button:hover {
+  box-shadow: 0 8px 26px -8px #6366f1a0;
+}
+.send-button:active {
+  scale: 0.985;
+}
+.send-button:focus-visible {
+  outline: 2px solid var(--color-accent-soft);
+  outline-offset: 4px;
+}
+.send-button:disabled {
+  cursor: wait;
+}
+.send-button[data-flying] .send-plane {
+  animation: send-flight 0.95s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.send-button[data-flying] .send-trail {
+  animation: send-trail 0.65s ease-out both;
+}
+@keyframes send-flight {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(110px, -55px) rotate(-20deg);
+    opacity: 0;
+  }
+  46% {
+    transform: translate(-55px, 25px) rotate(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes send-trail {
+  20% {
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: translate(85px, -30px) rotate(-20deg) scaleX(1.8);
+    opacity: 0;
+  }
+}
+@media (min-width: 640px) {
+  .intro-story {
+    width: calc(100% - 3rem);
+  }
+}
+@media (max-width: 767px) {
+  .cosmos-orbit {
+    left: 3%;
+    width: 94%;
+  }
+  .experience-scene {
+    padding: 2.5rem 0.25rem 0.5rem;
+  }
+  #projects article {
+    transform: perspective(1200px) translateY(calc(var(--scene-enter) * 24px))
+      scale(calc(1 - var(--scene-enter) * 0.035));
+  }
+  .cosmos {
+    transform: perspective(1100px)
+      translateZ(calc(var(--hero-progress) * 120px))
+      rotateX(calc(var(--hero-progress) * 6deg));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cosmos,
+  .cosmos-depth i,
+  .experience-scene,
+  #projects article,
+  [data-reveal].reveal-pending {
+    transform: none;
+  }
+  .cosmos-core {
+    transform: translate(-50%, -50%);
+  }
+  .send-button:active {
+    scale: 1;
+  }
+  .send-button:hover .send-plane,
+  .send-button:focus-visible .send-plane {
+    transform: none;
+  }
+}
+
+/* Final cascade: replace the early 3D zoom with a clean vertical dissolve. */
+.intro-section .hero-journey {
+  height: 128svh;
+  min-height: 680px;
+}
+
+.intro-section .hero-title {
+  transform: translate3d(0, calc(var(--hero-progress) * -28px), 0);
+  opacity: calc(1 - var(--hero-progress) * 1.05);
+}
+
+.intro-section .cosmos {
+  transform: translate3d(0, calc(var(--hero-progress) * -52px), 0);
+  opacity: calc(1 - var(--hero-progress) * 1.15);
+}
+
+.intro-section .cosmos-core {
+  transform: translate(-50%, calc(-50% + var(--hero-progress) * -22px));
+}
+
+.intro-section .cosmos-depth i,
+.intro-section .cosmos-depth i:nth-child(2),
+.intro-section .cosmos-depth i:nth-child(3) {
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .intro-section .hero-journey {
+    height: 118svh;
+    min-height: 590px;
+  }
+
+  .intro-section .hero-title {
+    transform: translate3d(0, calc(var(--hero-progress) * -16px), 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-title,
+  .intro-section .cosmos {
+    transform: none;
+  }
+
+  .intro-section .cosmos-core {
+    transform: translate(-50%, -50%);
+  }
+}

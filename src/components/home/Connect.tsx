@@ -23,12 +23,18 @@ export default function Connect() {
       className="section-spacing relative flex flex-col items-center justify-center gap-6"
     >
       <div className="w-full text-[var(--color-primary)]">
-        <h2 className="pb-16 text-center text-3xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
+        <h2
+          data-reveal="heading"
+          className="pb-16 text-center text-3xl font-bold sm:text-3xl md:text-4xl lg:text-5xl"
+        >
           Connect
         </h2>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-4">
+      <div
+        data-reveal="contact-intro"
+        className="flex flex-col items-center justify-center gap-4"
+      >
         <p className="text-center text-lg text-black/70 dark:text-white/70 sm:text-xl">
           새로운 기회나 협업 제안은 언제든 환영합니다.
         </p>

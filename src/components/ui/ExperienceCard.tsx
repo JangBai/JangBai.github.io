@@ -1,27 +1,20 @@
 import { experienceData } from "@/data/experience";
 
 export default function ExperienceCard() {
-  let lineHeight = "h-[120%]";
-
   return (
     <div className="relative space-y-20">
-      {experienceData.map((item, index) => {
-        if (index === experienceData.length - 1) {
-          lineHeight = "h-full";
-        }
-
+      {experienceData.map((item) => {
         return (
-          <div key={item.id} className="relative">
-            <div className="absolute left-1.5 top-3 h-3 w-3 -translate-x-1/2 rounded-full bg-[var(--color-primary)] shadow-[0_0_12px_var(--color-primary)]" />
-            <div
-              className={`absolute left-[0.35rem] top-4 ${lineHeight} w-0.5 bg-[var(--color-primary)]`}
-            />
-
+          <div
+            key={item.id}
+            className="experience-scene"
+            data-scene="experience"
+          >
             {/* content */}
-            <div className="w-full pl-8">
-              <div className="mb-10">
-                <div className="flex flex-wrap items-end gap-3">
-                  <div className="text-2xl font-bold tracking-tight sm:text-2xl md:text-3xl">
+            <div className="w-full text-center">
+              <div className="mb-10" data-reveal="company">
+                <div className="flex flex-wrap items-end justify-center gap-3">
+                  <div className="text-xl font-bold tracking-tight sm:text-2xl">
                     <span className="bg-gradient-to-r from-slate-900 to-slate-500 bg-clip-text text-transparent dark:from-white dark:to-slate-400">
                       {item.company}
                     </span>
@@ -37,15 +30,23 @@ export default function ExperienceCard() {
               </div>
 
               {item.sections.map((section, idx) => (
-                <div key={idx} className="mb-8">
-                  <h4 className="mb-3 text-lg font-semibold tracking-wide text-black dark:text-white lg:text-xl">
+                <div
+                  key={idx}
+                  className="experience-detail mb-8"
+                  data-reveal="detail"
+                >
+                  <h4
+                    data-reveal="subheading"
+                    className="mb-3 text-base font-semibold tracking-wide text-black dark:text-white sm:text-lg"
+                  >
                     {section.title}
                   </h4>
-                  <ul className="text-md space-y-1 opacity-80 lg:text-lg">
+                  <ul className="space-y-2 text-sm leading-relaxed opacity-80 sm:text-base">
                     {section.descriptions.map((desc, i) => (
                       <li
                         key={i}
-                        className="relative pl-3 before:absolute before:left-0 before:top-[12px] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-accent-strong)] dark:before:bg-[var(--color-accent-soft)]"
+                        data-reveal="line"
+                        className="experience-line"
                       >
                         {desc}
                       </li>

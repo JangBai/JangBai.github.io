@@ -10,11 +10,9 @@ export default function App() {
       <Starfield />
       <TopButton />
       <Header />
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <main className="min-h-screen">
-          <Home />
-        </main>
-      </div>
+      <main className="min-h-screen">
+        <Home />
+      </main>
       <Footer />
     </>
   );

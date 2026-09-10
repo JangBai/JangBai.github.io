@@ -26,7 +26,6 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
-      "prettier/prettier": "error", // ESLint가 prettier 규칙 실행
     },
     languageOptions: {
       ecmaVersion: 2020,

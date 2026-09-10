@@ -7,11 +7,17 @@ export default function Experience() {
       className="section-spacing flex flex-col items-center justify-center gap-6"
     >
       <div className="w-full text-[var(--color-primary)]">
-        <h2 className="pb-16 text-center text-3xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
+        <h2
+          data-reveal="heading"
+          className="pb-16 text-center text-3xl font-bold sm:text-3xl md:text-4xl lg:text-4xl"
+        >
           Experience
         </h2>
 
-        <div className="relative flex flex-col gap-16">
+        <div
+          data-reveal="section-panel"
+          className="relative flex flex-col gap-16"
+        >
           <ExperienceCard />
         </div>
       </div>

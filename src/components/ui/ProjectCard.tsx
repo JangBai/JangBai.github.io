@@ -6,10 +6,14 @@ export default function ProjectCard() {
     <>
       {projects.map((project) => (
         <article
+          data-scene="project"
           key={project.id}
           className="relative w-full rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6"
         >
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
+          <div
+            data-reveal="card-title"
+            className="mb-6 flex flex-wrap items-end justify-between gap-2"
+          >
             <h3 className="bg-gradient-to-r from-slate-900 to-slate-500 bg-clip-text text-2xl font-semibold text-transparent dark:from-white dark:to-slate-400">
               {project.title}
             </h3>
@@ -35,7 +39,10 @@ export default function ProjectCard() {
           </div>
 
           {project.subTitle && project.subTitle.length > 0 && (
-            <div className="flex flex-col gap-0.5 pb-6 text-sm text-[var(--color-primary)]">
+            <div
+              data-reveal="detail"
+              className="flex flex-col gap-0.5 pb-6 text-sm text-[var(--color-primary)]"
+            >
               {project.subTitle.map((item) => (
                 <span key={item}>{item}</span>
               ))}
@@ -45,10 +52,13 @@ export default function ProjectCard() {
           {/* 설명 */}
           <div className="space-y-10 text-[var(--color-primary)]">
             {project.descriptions.map((description, descriptionIndex) => (
-              <div key={descriptionIndex}>
+              <div key={descriptionIndex} data-reveal="detail">
                 {/* 섹션 타이틀이 있는 경우만 출력 */}
                 {description.title && (
-                  <h4 className="mb-3 text-sm font-semibold tracking-wide text-black dark:text-white">
+                  <h4
+                    data-reveal="subheading"
+                    className="mb-3 text-sm font-semibold tracking-wide text-black dark:text-white"
+                  >
                     {description.title}
                   </h4>
                 )}
@@ -57,6 +67,7 @@ export default function ProjectCard() {
                   {description.items.map((item, index) => (
                     <li
                       key={index}
+                      data-reveal="line"
                       className="relative pl-3 before:absolute before:left-0 before:top-[12px] before:h-1 before:w-1 before:rounded-full before:bg-[var(--color-accent-strong)] dark:before:bg-[var(--color-accent-soft)]"
                     >
                       {item}
@@ -68,7 +79,10 @@ export default function ProjectCard() {
           </div>
 
           {/* 스택 */}
-          <div className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs">
+          <div
+            data-reveal="stacks"
+            className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs"
+          >
             <span className="text-[var(--color-primary)]">Stack</span>
             <div className="flex flex-wrap items-center gap-2">
               {project.stacks.map((stack) => (
@@ -83,7 +97,10 @@ export default function ProjectCard() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs">
+          <div
+            data-reveal="stacks"
+            className="mt-6 flex flex-col flex-wrap items-start gap-2 text-xs"
+          >
             <span className="text-[var(--color-primary)]">Communication</span>
             <div className="flex flex-wrap items-center gap-2">
               {project.communication.map((stack) => (

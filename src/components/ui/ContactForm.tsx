@@ -12,6 +12,7 @@ type FormValues = {
 
 export default function ContactForm() {
   const [visible, setVisible] = useState(false);
+  const [flight, setFlight] = useState(false);
 
   const { values, errors, isSubmitting, handleChange, handleSubmit } =
     useContactForm();
@@ -28,11 +29,17 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6 text-[var(--color-primary)]">
+    <div
+      data-reveal="card"
+      className="relative flex w-full flex-col items-center justify-center rounded-xl border border-white/10 bg-[var(--color-accent-soft-20)] p-6 text-[var(--color-primary)]"
+    >
       <form
         className="w-full"
         onSubmit={(e) => {
           e.preventDefault();
+          setFlight(
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          );
           handleSubmit(onSubmit);
         }}
       >
@@ -96,18 +103,23 @@ export default function ContactForm() {
           </div>
 
           <button
+            type="submit"
+            aria-busy={isSubmitting}
+            data-flying={flight || undefined}
             disabled={isSubmitting}
-            className="mt-8 w-full rounded-md bg-[var(--color-accent-strong)] p-2 text-white transition-all duration-300 hover:bg-[var(--color-accent)] dark:bg-[var(--color-accent)] dark:hover:bg-[var(--color-accent-strong)]"
+            className="send-button mt-8 w-full rounded-md bg-[var(--color-accent-strong)] p-2 text-white transition-all duration-300 hover:bg-[var(--color-accent)] dark:bg-[var(--color-accent)] dark:hover:bg-[var(--color-accent-strong)]"
           >
-            {isSubmitting ? (
-              "보내는 중"
-            ) : (
-              <>
-                <span className="flex items-center justify-center gap-2">
-                  문의하기 <GrSend />
-                </span>
-              </>
-            )}
+            <span className="send-label">
+              {isSubmitting ? "보내는 중" : "문의하기"}
+            </span>
+            <span
+              className="send-plane"
+              aria-hidden="true"
+              onAnimationEnd={() => setFlight(false)}
+            >
+              <GrSend />
+            </span>
+            <span className="send-trail" aria-hidden="true" />
           </button>
         </div>
       </form>
