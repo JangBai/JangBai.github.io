@@ -98,17 +98,6 @@
   );
   transform: scaleX(calc(1 - var(--heading-enter, 0)));
 }
-.motion-enabled .intro-section .hero-journey {
-  height: 155svh;
-}
-.motion-enabled .intro-section .hero-title {
-  transform: translateY(calc(var(--hero-progress) * -100px))
-    scale(calc(1 + var(--hero-progress) * 0.18));
-}
-.motion-enabled .intro-section .cosmos {
-  transform: scale(calc(1 + var(--hero-progress) * 0.7))
-    rotate(calc(var(--hero-progress) * 18deg));
-}
 @media (hover: hover) and (pointer: fine) {
   #projects article:hover {
     box-shadow: 0 20px 90px -35px #818cf888;

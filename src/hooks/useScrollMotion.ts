@@ -8,7 +8,6 @@ export function useScrollMotion() {
     const root = ref.current;
     if (!root) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const hero = root.querySelector<HTMLElement>(".hero-journey");
     const targets = root.querySelectorAll<HTMLElement>("[data-reveal]");
     const scenes = root.querySelectorAll<HTMLElement>("[data-scene]");
     const stories = root.querySelectorAll<HTMLElement>("[data-story]");
@@ -19,8 +18,6 @@ export function useScrollMotion() {
     let frame = 0;
     let observer: IntersectionObserver | undefined;
     let layoutDirty = true;
-    let heroTop = 0;
-    let heroHeight = 0;
     const storyLayout = new Map<HTMLElement, { top: number; height: number }>();
     const headingLayout = new Map<HTMLElement, number>();
     const sceneLayout = new Map<HTMLElement, { top: number; height: number }>();
@@ -29,10 +26,6 @@ export function useScrollMotion() {
     // document coordinates and refresh them only when the layout can change.
     const measureLayout = () => {
       const scrollY = window.scrollY;
-      if (hero) {
-        heroTop = hero.getBoundingClientRect().top + scrollY;
-        heroHeight = hero.offsetHeight;
-      }
       storyLayout.clear();
       headingLayout.clear();
       sceneLayout.clear();
@@ -61,12 +54,9 @@ export function useScrollMotion() {
 
     const update = () => {
       frame = 0;
-      if (!hero || preference.matches) return;
+      if (preference.matches) return;
       if (layoutDirty) measureLayout();
       const scrollY = window.scrollY;
-      const distance = Math.max(1, heroHeight - window.innerHeight);
-      const progress = Math.min(1, Math.max(0, (scrollY - heroTop) / distance));
-      hero.style.setProperty("--hero-progress", String(progress));
       root.style.setProperty(
         "--page-progress",
         String(
@@ -135,7 +125,6 @@ export function useScrollMotion() {
       root.classList.toggle("motion-enabled", !preference.matches);
       observer?.disconnect();
       targets.forEach((target) => target.classList.remove("reveal-pending"));
-      hero?.style.removeProperty("--hero-progress");
       scenes.forEach((scene) => {
         scene.style.removeProperty("--scene-enter");
         scene.style.removeProperty("--scene-leave");

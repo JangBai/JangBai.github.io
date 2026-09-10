@@ -1,10 +1,48 @@
 import AboutStory from "./AboutStory";
 import { TypeAnimation } from "react-type-animation";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Introduce() {
+  const journeyRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const journey = journeyRef.current;
+    if (
+      !journey ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+
+    // Lenis continues to provide the physical smoothing; ScrollTrigger turns
+    // that scroll position into a scrubbed progress value for the hero scene.
+    const context = gsap.context(() => {
+      gsap.fromTo(
+        journey,
+        { "--hero-progress": 0 },
+        {
+          "--hero-progress": 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: journey,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.7,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+    }, journey);
+
+    return () => context.revert();
+  }, []);
+
   return (
     <section id="introduce" className="intro-section">
-      <div className="hero-journey">
+      <div ref={journeyRef} className="hero-journey">
         <div className="hero-stage">
           <div className="cosmos" aria-hidden="true">
             <div className="cosmos-haze" />

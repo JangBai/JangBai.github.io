@@ -10,6 +10,7 @@ body {
   font-family: "Pretendard", sans-serif;
   line-height: 1.6;
   letter-spacing: -0.01em;
+  overflow-x: clip;
 }
 
 :root {
@@ -377,6 +378,58 @@ section[id] {
   }
 }
 
+/* The opening stays visually stable while scrolling. Its exit is triggered
+   once at the handoff point, avoiding scroll-linked 3D/zoom recalculation. */
+.hero-journey {
+  position: relative;
+}
+
+.hero-transition-sentinel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.intro-section .hero-stage {
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.intro-section .hero-stage.hero-is-leaving {
+  opacity: 0;
+  transform: translate3d(0, -12px, 0);
+}
+
+.intro-section .hero-title {
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
+
+.intro-section .cosmos {
+  transform: none;
+  opacity: 1;
+}
+
+.intro-section .cosmos-core {
+  transform: translate(-50%, -50%);
+}
+
+.intro-section .hero-scroll {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-stage {
+    transition: none;
+  }
+}
+
 /* Keep these after the earlier 3D experiment so the narrative handoff wins. */
 .intro-section .hero-journey {
   height: 128svh;
@@ -422,6 +475,46 @@ section[id] {
 
   .intro-section .cosmos-core {
     transform: translate(-50%, -50%);
+  }
+}
+
+/* Final hero handoff: a single composited 3D layer follows Lenis scroll.
+   This preserves the zoom-in transition without transforming every orbit. */
+.intro-section .hero-stage {
+  transform: perspective(1200px)
+    translate3d(0, calc(var(--hero-progress) * -20px), 0)
+    rotateX(calc(var(--hero-progress) * 8deg))
+    scale(calc(1 + var(--hero-progress) * 0.14));
+  transform-origin: 50% 45%;
+  opacity: calc(1 - var(--hero-progress));
+  transition: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.intro-section .hero-title {
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
+
+.intro-section .cosmos {
+  transform: none;
+  opacity: 1;
+}
+
+.intro-section .cosmos-core {
+  transform: translate(-50%, -50%);
+}
+
+.intro-section .hero-scroll {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-stage {
+    transform: none;
+    opacity: 1;
   }
 }
 
@@ -528,6 +621,12 @@ section[id] {
 }
 .hero-stage {
   overflow: clip;
+}
+
+/* The perspective zoom may extend beyond the viewport while it is scrubbed.
+   Keep it visually full-bleed without creating a horizontal page scrollbar. */
+.intro-section {
+  overflow-x: clip;
 }
 
 /* Narrative handoff: the hero dissolves into the introduction instead of
