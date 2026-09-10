@@ -1,4 +1,5 @@
 import ProjectCard from "@/components/ui/ProjectCard";
+import SideProjectCard from "@/components/ui/SideProjectCard";
 
 export default function Projects() {
   return (
@@ -14,6 +15,15 @@ export default function Projects() {
       </h2>
       <div data-reveal="section-panel" className="relative w-full space-y-10">
         <ProjectCard />
+        <div className="pt-12">
+          <h2
+            data-reveal="heading"
+            className="pb-6 text-center text-3xl font-bold text-[var(--color-primary)] sm:text-3xl md:text-4xl lg:text-5xl"
+          >
+            Side Projects
+          </h2>
+        </div>
+        <SideProjectCard />
       </div>
     </section>
   );
