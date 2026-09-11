@@ -3,6 +3,7 @@ import { TypeAnimation } from "react-type-animation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
+import SpaceEntrance from "./SpaceEntrance";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,6 +45,7 @@ export default function Introduce() {
     <section id="introduce" className="intro-section">
       <div ref={journeyRef} className="hero-journey">
         <div className="hero-stage">
+          <SpaceEntrance journeyRef={journeyRef} />
           <div className="cosmos" aria-hidden="true">
             <div className="cosmos-haze" />
             <div className="cosmos-depth">

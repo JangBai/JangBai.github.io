@@ -467,7 +467,33 @@ section[id] {
   }
 }
 
+/* Give the star-flight room to breathe: the handoff now takes roughly three
+   to four deliberate scrolls instead of dissolving after the first wheel step. */
+.intro-section .hero-journey {
+  height: 330svh;
+  min-height: 1900px;
+}
+
+@media (max-width: 767px) {
+  .intro-section .hero-journey {
+    height: 310svh;
+    min-height: 1500px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-journey {
+    height: auto;
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-journey {
+    height: auto;
+    min-height: 0;
+  }
+
   .intro-section .hero-title,
   .intro-section .cosmos {
     transform: none;
@@ -475,6 +501,26 @@ section[id] {
 
   .intro-section .cosmos-core {
     transform: translate(-50%, -50%);
+  }
+}
+
+/* Final hero duration: a longer star-flight delays the content handoff. */
+.intro-section .hero-journey {
+  height: 330svh;
+  min-height: 1900px;
+}
+
+@media (max-width: 767px) {
+  .intro-section .hero-journey {
+    height: 310svh;
+    min-height: 1500px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-journey {
+    height: auto;
+    min-height: 0;
   }
 }
 
@@ -1031,10 +1077,10 @@ section[id] {
   }
 }
 
-/* Final cascade: replace the early 3D zoom with a clean vertical dissolve. */
+/* Final cascade: a longer star-flight now leads into the clean vertical dissolve. */
 .intro-section .hero-journey {
-  height: 128svh;
-  min-height: 680px;
+  height: 330svh;
+  min-height: 1900px;
 }
 
 .intro-section .hero-title {
@@ -1059,8 +1105,8 @@ section[id] {
 
 @media (max-width: 767px) {
   .intro-section .hero-journey {
-    height: 118svh;
-    min-height: 590px;
+    height: 310svh;
+    min-height: 1500px;
   }
 
   .intro-section .hero-title {
@@ -1076,5 +1122,29 @@ section[id] {
 
   .intro-section .cosmos-core {
     transform: translate(-50%, -50%);
+  }
+}
+
+/* Hold the 3D scene until the final stretch, then reveal the reading UI. */
+.intro-section .hero-stage {
+  opacity: clamp(0, calc((1 - var(--hero-progress)) * 3.6), 1);
+}
+
+.intro-section .hero-title {
+  opacity: clamp(0, calc((1 - var(--hero-progress)) * 3.6), 1);
+}
+
+.intro-section .cosmos {
+  opacity: clamp(0, calc((1 - var(--hero-progress)) * 3.6), 1);
+}
+
+.hero-stage::after {
+  opacity: clamp(0, calc((var(--hero-progress) - 0.72) * 3.6), 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-section .hero-journey {
+    height: auto;
+    min-height: 0;
   }
 }

@@ -165,3 +165,19 @@
     filter: none;
   }
 }
+
+/* WebGL is limited to the opening handoff; all portfolio content stays normal UI. */
+.space-entrance {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 82%, transparent);
+}
+
+.space-entrance canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
