@@ -1,5 +1,10 @@
 import { sideProjects } from "@/data/sideProjects";
-import { RiShareBoxLine } from "react-icons/ri";
+// import { useState } from "react";
+import {
+  // RiArrowLeftSLine,
+  // RiArrowRightSLine,
+  RiShareBoxLine,
+} from "react-icons/ri";
 import {
   SiPrisma,
   SiRailway,
@@ -16,6 +21,82 @@ const stackIcons: Record<string, IconType> = {
   supabase: SiSupabase,
   vercel: SiVercel,
 };
+
+// type ScreenshotSliderProps = {
+//   screenshots: NonNullable<(typeof sideProjects)[number]["screenshots"]>;
+// };
+
+// function ScreenshotSlider({ screenshots }: ScreenshotSliderProps) {
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const activeScreenshot = screenshots[activeIndex];
+
+//   const moveSlide = (direction: number) => {
+//     setActiveIndex(
+//       (index) => (index + direction + screenshots.length) % screenshots.length
+//     );
+//   };
+
+//   return (
+//     <section data-reveal="detail" className="mt-6">
+//       <div className="mb-2 flex items-center justify-between gap-3">
+//         <h4 className="text-sm font-semibold text-black dark:text-white">
+//           화면 미리보기
+//         </h4>
+//         <span className="text-xs text-[var(--color-primary)]">
+//           {activeIndex + 1} / {screenshots.length}
+//         </span>
+//       </div>
+//       <div className="overflow-hidden rounded-lg border border-white/10 bg-slate-950/80">
+//         <img
+//           key={activeScreenshot.src}
+//           src={activeScreenshot.src}
+//           alt={activeScreenshot.alt}
+//           className="aspect-video w-full object-cover"
+//         />
+//       </div>
+//       <div className="mt-3 flex items-center justify-between gap-3">
+//         <div className="flex items-center gap-1">
+//           <button
+//             type="button"
+//             onClick={() => moveSlide(-1)}
+//             aria-label="이전 화면"
+//             className="hover-accent rounded-md p-1 text-[var(--color-primary)]"
+//           >
+//             <RiArrowLeftSLine className="h-5 w-5" />
+//           </button>
+//           <button
+//             type="button"
+//             onClick={() => moveSlide(1)}
+//             aria-label="다음 화면"
+//             className="hover-accent rounded-md p-1 text-[var(--color-primary)]"
+//           >
+//             <RiArrowRightSLine className="h-5 w-5" />
+//           </button>
+//         </div>
+//         <div
+//           className="flex items-center gap-1.5"
+//           role="tablist"
+//           aria-label="화면 미리보기"
+//         >
+//           {screenshots.map((screenshot, index) => (
+//             <button
+//               key={screenshot.src}
+//               type="button"
+//               role="tab"
+//               aria-label={`${screenshot.label} 화면 보기`}
+//               aria-selected={activeIndex === index}
+//               onClick={() => setActiveIndex(index)}
+//               className={`h-2 rounded-full transition-all ${activeIndex === index ? "w-5 bg-[var(--color-accent-soft)]" : "w-2 bg-white/30 hover:bg-white/60"}`}
+//             />
+//           ))}
+//         </div>
+//         <span className="min-w-16 text-right text-xs font-medium text-[var(--color-primary)]">
+//           {activeScreenshot.label}
+//         </span>
+//       </div>
+//     </section>
+//   );
+// }
 
 export default function SideProjectCard() {
   return (
@@ -35,7 +116,7 @@ export default function SideProjectCard() {
             </h3>
 
             <div className="flex flex-wrap gap-1.5">
-              {project.links.map((item) => (
+              {project.links?.map((item) => (
                 <a
                   key={item.id}
                   href={item.link}
@@ -69,24 +150,36 @@ export default function SideProjectCard() {
             ))}
           </ul>
 
-          {project.testAccounts && project.testNotice && (
+          {/* {project.screenshots && project.screenshots.length > 0 && (
+            <ScreenshotSlider screenshots={project.screenshots} />
+          )} */}
+
+          {(project.testAccounts || project.testNotice) && (
             <div
               data-reveal="detail"
               className="mt-6 rounded-lg border border-white/10 bg-black/10 p-4 text-sm text-[var(--color-primary)] dark:bg-white/10"
             >
-              <h4 className="mb-2 font-semibold text-black dark:text-white">
-                Test Account
-              </h4>
-              <ul className="space-y-1 font-mono text-xs">
-                {project.testAccounts.map((account) => (
-                  <li key={account.email}>
-                    {account.email} / {account.password}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-3 whitespace-pre-line leading-relaxed">
-                {project.testNotice}
-              </p>
+              {project.testAccounts && (
+                <>
+                  <h4 className="mb-2 font-semibold text-black dark:text-white">
+                    Test Account
+                  </h4>
+                  <ul className="space-y-1 font-mono text-xs">
+                    {project.testAccounts.map((account) => (
+                      <li key={account.email}>
+                        {account.email} / {account.password}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {project.testNotice && (
+                <p
+                  className={`${project.testAccounts ? "mt-3" : ""} whitespace-pre-line leading-relaxed`}
+                >
+                  {project.testNotice}
+                </p>
+              )}
             </div>
           )}
 

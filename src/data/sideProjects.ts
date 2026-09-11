@@ -1,7 +1,7 @@
 export type SideProjectLink = {
-  id: number;
-  title: string;
-  link: string;
+  id?: number;
+  title?: string;
+  link?: string;
 };
 
 export type SideProjectStack = {
@@ -14,15 +14,22 @@ export type SideProjectTestAccount = {
   password: string;
 };
 
+export type SideProjectScreenshot = {
+  src: string;
+  alt: string;
+  label: string;
+};
+
 export type SideProjectItem = {
   id: number;
   title: string;
   subTitle: string;
   descriptions: string[];
-  links: SideProjectLink[];
+  links?: SideProjectLink[];
   stacks: SideProjectStack[];
   testAccounts?: SideProjectTestAccount[];
   testNotice?: string;
+  screenshots?: SideProjectScreenshot[];
 };
 
 export const sideProjects: SideProjectItem[] = [
@@ -37,11 +44,21 @@ export const sideProjects: SideProjectItem[] = [
       "추가·수정·삭제 등 주요 작업 이력 로그 조회 기능 구현",
       "계정별 권한에 따라 조회·삭제 등 기능을 제한하는 권한 관리 적용",
     ],
-    links: [
+    screenshots: [
       {
-        id: 1,
-        title: "서비스 바로가기",
-        link: "https://procket-one.vercel.app/login",
+        src: "/project-screenshots/inventory-dashboard.svg",
+        alt: "재고관리시스템 대시보드 예시 화면",
+        label: "대시보드",
+      },
+      {
+        src: "/project-screenshots/inventory-products.svg",
+        alt: "재고관리시스템 제품 관리 예시 화면",
+        label: "제품 관리",
+      },
+      {
+        src: "/project-screenshots/inventory-calendar.svg",
+        alt: "재고관리시스템 일정 관리 예시 화면",
+        label: "일정 관리",
       },
     ],
     stacks: [
@@ -51,6 +68,8 @@ export const sideProjects: SideProjectItem[] = [
       { name: "Supabase", icon: "supabase" },
       { name: "Supabase Storage", icon: "supabase" },
     ],
+    // testNotice:
+    //   "실제 운영중인 서비스라 링크는 제공하지 않아요. 일부 화면만 캡쳐본으로 확인 해주시면 감사하겠습니다.",
   },
   {
     id: 2,
