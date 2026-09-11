@@ -1,5 +1,6 @@
 import { sideProjects } from "@/data/sideProjects";
-// import { useState } from "react";
+// import useEmblaCarousel from "embla-carousel-react";
+// import { useEffect, useState } from "react";
 import {
   // RiArrowLeftSLine,
   // RiArrowRightSLine,
@@ -28,13 +29,22 @@ const stackIcons: Record<string, IconType> = {
 
 // function ScreenshotSlider({ screenshots }: ScreenshotSliderProps) {
 //   const [activeIndex, setActiveIndex] = useState(0);
+//   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 //   const activeScreenshot = screenshots[activeIndex];
 
-//   const moveSlide = (direction: number) => {
-//     setActiveIndex(
-//       (index) => (index + direction + screenshots.length) % screenshots.length
-//     );
-//   };
+//   useEffect(() => {
+//     if (!emblaApi) return;
+
+//     const updateActiveIndex = () => setActiveIndex(emblaApi.selectedScrollSnap());
+//     updateActiveIndex();
+//     emblaApi.on("select", updateActiveIndex);
+//     emblaApi.on("reInit", updateActiveIndex);
+
+//     return () => {
+//       emblaApi.off("select", updateActiveIndex);
+//       emblaApi.off("reInit", updateActiveIndex);
+//     };
+//   }, [emblaApi]);
 
 //   return (
 //     <section data-reveal="detail" className="mt-6">
@@ -46,19 +56,30 @@ const stackIcons: Record<string, IconType> = {
 //           {activeIndex + 1} / {screenshots.length}
 //         </span>
 //       </div>
-//       <div className="overflow-hidden rounded-lg border border-white/10 bg-slate-950/80">
-//         <img
-//           key={activeScreenshot.src}
-//           src={activeScreenshot.src}
-//           alt={activeScreenshot.alt}
-//           className="aspect-video w-full object-cover"
-//         />
+//       <div
+//         ref={emblaRef}
+//         className="cursor-grab overflow-hidden rounded-lg border border-white/10 bg-slate-950/80 active:cursor-grabbing"
+//         style={{ touchAction: "pan-y pinch-zoom" }}
+//         aria-label="화면 미리보기 슬라이드. 좌우로 드래그하여 화면을 넘길 수 있습니다."
+//       >
+//         <div className="flex">
+//           {screenshots.map((screenshot) => (
+//             <div key={screenshot.src} className="min-w-0 flex-[0_0_100%]">
+//               <img
+//                 src={screenshot.src}
+//                 alt={screenshot.alt}
+//                 draggable={false}
+//                 className="aspect-video w-full select-none object-cover"
+//               />
+//             </div>
+//           ))}
+//         </div>
 //       </div>
 //       <div className="mt-3 flex items-center justify-between gap-3">
 //         <div className="flex items-center gap-1">
 //           <button
 //             type="button"
-//             onClick={() => moveSlide(-1)}
+//             onClick={() => emblaApi?.scrollPrev()}
 //             aria-label="이전 화면"
 //             className="hover-accent rounded-md p-1 text-[var(--color-primary)]"
 //           >
@@ -66,7 +87,7 @@ const stackIcons: Record<string, IconType> = {
 //           </button>
 //           <button
 //             type="button"
-//             onClick={() => moveSlide(1)}
+//             onClick={() => emblaApi?.scrollNext()}
 //             aria-label="다음 화면"
 //             className="hover-accent rounded-md p-1 text-[var(--color-primary)]"
 //           >
@@ -85,7 +106,7 @@ const stackIcons: Record<string, IconType> = {
 //               role="tab"
 //               aria-label={`${screenshot.label} 화면 보기`}
 //               aria-selected={activeIndex === index}
-//               onClick={() => setActiveIndex(index)}
+//               onClick={() => emblaApi?.scrollTo(index)}
 //               className={`h-2 rounded-full transition-all ${activeIndex === index ? "w-5 bg-[var(--color-accent-soft)]" : "w-2 bg-white/30 hover:bg-white/60"}`}
 //             />
 //           ))}
