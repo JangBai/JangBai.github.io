@@ -13,7 +13,7 @@ export default function Projects() {
       >
         Projects
       </h2>
-      <div data-reveal="section-panel" className="relative w-full space-y-10">
+      <div className="relative w-full space-y-10">
         <ProjectCard />
         <div className="pt-12">
           <h2
