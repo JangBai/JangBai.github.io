@@ -29,7 +29,7 @@ export const experienceData: ExperienceItem[] = [
     // ],
     period: [
       {
-        duration: "2025.07 ~ 현재",
+        duration: "2025.07 ~ 2026.10 (1년 4개월)",
         team: "마케팅IT팀",
       },
     ],
